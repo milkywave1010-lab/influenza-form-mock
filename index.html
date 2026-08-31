@@ -45,14 +45,26 @@ const patientPanel=document.getElementById('patientPanel');
 const mockComplete=document.getElementById('mockComplete');
 let currentSelection={date:'',slotId:''};
 
+const modeNames={reserve:'予約',cancel:'キャンセル',inquiry:'お問い合わせ'};
+
+function updateModeLabels(activeTarget){
+  modeButtons.forEach(button=>{
+    const name=modeNames[button.dataset.target];
+    button.textContent=button.dataset.target===activeTarget?name:name+'はこちら';
+  });
+}
+
 modeButtons.forEach(button=>{
   button.addEventListener('click',()=>{
     modeButtons.forEach(item=>item.classList.remove('active'));
     button.classList.add('active');
+    updateModeLabels(button.dataset.target);
     contents.forEach(item=>item.style.display='none');
     document.getElementById(button.dataset.target).style.display='block';
   });
 });
+
+updateModeLabels('reserve');
 
 function makeSlotId(text){
   const match=String(text||'').match(/(\d{1,2})\/(\d{1,2}).*?(\d{1,2}):(\d{2})/);
