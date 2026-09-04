@@ -1,0 +1,31 @@
+name: Adjust date width one fifth
+on:
+  push:
+    paths:
+      - '.github/workflows/date-width-one-fifth.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set date columns to one fifth addition
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='.desktop-slots{min-width:543px;font-size:14px;overflow:visible}'
+          new='.desktop-slots{min-width:525px;font-size:14px;overflow:visible}'
+          if old not in s:
+              raise SystemExit('target CSS not found')
+          p.write_text(s.replace(old,new,1))
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Adjust mobile date columns to one fifth wider'
+          git push
