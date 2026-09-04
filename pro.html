@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>インフルエンザ予防接種予約｜上井草在宅支援診療所</title>
+<style>
+:root{
+  --bg:#f4f7f5;--surface:#fff;--surface2:#f8faf9;--ink:#183028;--muted:#66766f;--line:#dce5e0;
+  --brand:#22684f;--brand2:#2d7a5d;--brandSoft:#eaf4ef;--amber:#b87720;--amberSoft:#fff4df;
+  --red:#b84f4f;--redSoft:#fff0ef;--blue:#356f93;--shadow:0 14px 38px rgba(24,48,40,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#eef5f1 0,#f7f9f8 260px,var(--bg) 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.6}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.shell{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:22px 0 74px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:8px 0 20px}
+.brand{display:flex;align-items:center;gap:18px;min-width:0}.logo{width:188px;height:auto;display:block}.brandcopy{min-width:0}.eyebrow{font-size:13px;color:var(--brand);font-weight:800;letter-spacing:.03em}.brand h1{font-size:clamp(25px,3.5vw,38px);line-height:1.28;margin:4px 0 0;font-weight:750;letter-spacing:-.025em}.brand p{margin:7px 0 0;color:var(--muted);font-size:14px}
+.phone{padding:12px 16px;border:1px solid var(--line);background:rgba(255,255,255,.82);border-radius:14px;box-shadow:var(--shadow);white-space:nowrap}.phone small{display:block;color:var(--muted);font-size:11px}.phone a{font-size:20px;font-weight:800;color:var(--brand);text-decoration:none}
+.navwrap{position:sticky;top:0;z-index:20;padding:8px 0;background:linear-gradient(180deg,rgba(244,247,245,.96),rgba(244,247,245,.88));backdrop-filter:blur(10px)}
+.nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:5px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.9);box-shadow:0 8px 24px rgba(24,48,40,.06)}
+.nav button{min-height:48px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-weight:800}.nav button.active{background:var(--brand);color:#fff;box-shadow:0 6px 16px rgba(34,104,79,.22)}
+.notice{display:flex;align-items:flex-start;gap:12px;margin:14px 0 18px;padding:13px 15px;border:1px solid #ecd8b5;background:#fff9ee;border-radius:12px;font-size:14px}.notice b{color:var(--amber);white-space:nowrap}
+.content{display:none}.content.active{display:block}
+.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.55fr);gap:18px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.card+.card{margin-top:18px}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfcfb)}.cardhead h2{margin:0;font-size:20px}.step{display:inline-grid;place-items:center;width:28px;height:28px;margin-right:8px;border-radius:50%;background:var(--brand);color:#fff;font-size:14px}.legend{color:var(--muted);font-size:12px}.cardbody{padding:18px 20px 22px}
+.weekbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin-bottom:12px}.weekbar strong{text-align:center;font-size:17px}.ghost{min-height:42px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-weight:750}
+.swipe{display:none;margin:0 0 10px;padding:7px 10px;border-radius:999px;background:var(--brandSoft);color:var(--brand);text-align:center;font-size:13px;font-weight:800}
+.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff;-webkit-overflow-scrolling:touch}.slots{width:100%;border-collapse:separate;border-spacing:0;min-width:760px}.slots th,.slots td{padding:9px 7px;text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap}.slots tr:last-child td{border-bottom:0}.slots th:last-child,.slots td:last-child{border-right:0}.slots th{background:#f2f7f4;color:var(--brand);font-size:13px}.slots th:first-child,.slots td:first-child{position:sticky;left:0;z-index:3;background:#f9fbfa;font-weight:800}.slot{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:54px;min-height:48px;margin:auto;padding:4px;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--brand);font-weight:900;line-height:1.12}.slot small{font-size:11px;font-weight:800}.slot:hover:not(:disabled){background:var(--brandSoft);border-color:#b9d5c8}.slot.limited{color:var(--amber)}.slot.full{color:#9aa49f;background:#f0f2f1;cursor:default}.slot.selected{background:var(--brand);color:#fff;box-shadow:0 5px 14px rgba(34,104,79,.2)}
+.selectedbox{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:14px;padding:15px 16px;border:1px solid #bdd6ca;border-radius:12px;background:linear-gradient(135deg,#f3faf6,#fff)}.selectedbox small{display:block;color:var(--muted)}.selectedbox strong{display:block;margin-top:2px;color:var(--brand);font-size:20px}.chip{padding:8px 11px;border-radius:999px;background:var(--brandSoft);color:var(--brand);font-weight:800;font-size:12px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:800}.req{color:var(--red);margin-left:4px}.field input,.field select,.field textarea{width:100%;min-height:48px;padding:10px 12px;border:1px solid #cfdad4;border-radius:10px;background:#fff;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand2);box-shadow:0 0 0 3px rgba(45,122,93,.12)}.field textarea{min-height:105px;resize:vertical}.hint{font-size:12px;color:var(--muted)}
+.submit{width:100%;min-height:56px;margin-top:18px;border:0;border-radius:12px;background:linear-gradient(180deg,var(--brand2),var(--brand));color:#fff;font-size:17px;font-weight:900;box-shadow:0 9px 18px rgba(34,104,79,.2)}
+.side{display:grid;gap:18px;position:sticky;top:86px}.summary{padding:18px;border-radius:16px;background:linear-gradient(160deg,#184d3b,#286d53);color:#fff;box-shadow:var(--shadow)}.summary h3{margin:0 0 11px;font-size:18px}.summaryrow{padding:10px 0;border-top:1px solid rgba(255,255,255,.17)}.summaryrow span{display:block;color:rgba(255,255,255,.72);font-size:11px}.summaryrow strong{display:block;margin-top:1px;font-size:15px}.safety{padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff}.safety h3{margin:0 0 7px;font-size:16px}.safety p{margin:0;color:var(--muted);font-size:13px}.safety ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13px}
+.simple{max-width:760px;margin:0 auto}.simple .cardbody{padding:22px}.danger{padding:12px 14px;border:1px solid #efcccc;border-radius:10px;background:var(--redSoft);color:#884141;font-size:13px}.inquiry{padding:12px 14px;border:1px solid #ccdfeb;border-radius:10px;background:#eef7fc;color:#315d76;font-size:13px}
+.bottom{display:none}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.side{position:static}.summary{order:1}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.header{align-items:flex-start}.brand{align-items:flex-start}.logo{width:160px}.brand{display:grid}.phone{display:none}.slots{min-width:525px}.swipe{display:block}}
+@media(max-width:560px){body{background:#f5f7f6}.shell{width:min(100% - 12px,1180px);padding:10px 0 82px}.header{padding:4px 4px 10px}.brand{gap:8px}.logo{width:190px}.eyebrow{font-size:12px}.brand h1{font-size:24px;line-height:1.3}.brand p{font-size:13px}.navwrap{padding:5px 0}.nav{grid-template-columns:1fr;border-radius:12px}.nav button{min-height:50px}.nav.is-stuck button:not(.active){display:none}.notice{margin:10px 0 12px}.card{border-radius:13px}.cardhead{padding:15px}.cardhead h2{font-size:18px}.cardbody{padding:15px}.legend{font-size:11px}.weekbar strong{font-size:14px}.ghost{min-height:46px;padding:7px}.scroll{max-height:62vh}.slots th,.slots td{padding:9px 4px}.slots th{font-size:12px}.slot{min-width:34px;min-height:48px;font-size:18px}.slot small{font-size:14px}.selectedbox{grid-template-columns:1fr}.selectedbox strong{font-size:18px}.chip{justify-self:start}.field label{font-size:15px}.field input,.field select,.field textarea{min-height:56px;font-size:17px}.submit{min-height:60px;font-size:18px}.side{display:none}.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 -8px 24px rgba(0,0,0,.14)}.bottom a{display:flex;align-items:center;justify-content:center;min-height:58px;color:#fff;text-decoration:none;font-weight:900}.bottom a:first-child{background:var(--brand)}.bottom a:last-child{background:var(--blue)}.simple .cardbody{padding:17px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="header">
+  <div class="brand"><img class="logo" src="https://kamiigusa-zaitaku.clinic/img/logo.svg" alt="上井草在宅支援診療所"><div class="brandcopy"><div class="eyebrow">医療法人社団 奏　上井草在宅支援診療所</div><h1>インフルエンザ予防接種予約</h1><p>ご希望の接種日時を選択し、患者情報をご入力ください。</p></div></div>
+  <div class="phone"><small>お電話でのお問い合わせ</small><a href="tel:0369150303">03-6915-0303</a></div>
+</header>
+<div class="navwrap" id="navWrap"><nav class="nav" id="modeNav" aria-label="手続き選択"><button class="active" data-target="reserve">予約</button><button data-target="cancel">キャンセル</button><button data-target="inquiry">お問い合わせ</button></nav></div>
+<div class="notice"><b>ご案内</b><span>予約枠は最新状況を表示しています。満員の時間は選択できません。</span></div>
+
+<section id="reserve" class="content active">
+<div class="layout">
+<div>
+  <section class="card"><div class="cardhead"><h2><span class="step">1</span>接種日時を選ぶ</h2><span class="legend">○ 空きあり / ▲ 残りわずか / × 満員</span></div><div class="cardbody">
+    <div class="weekbar"><button class="ghost" type="button">‹ 前週</button><strong>2026年10月5日〜10月11日</strong><button class="ghost" type="button">次週 ›</button></div>
+    <div class="swipe">← 左右にスワイプして日付を確認 →</div>
+    <div class="scroll"><table class="slots"><thead><tr><th>時間</th><th>10/5 月</th><th>10/6 火</th><th>10/7 水</th><th>10/8 木</th><th>10/9 金</th><th>10/10 土</th><th>10/11 日</th></tr></thead><tbody>
+      <tr><td>9:00</td><td><button class="slot" data-date="10月5日（月）9:00">○<small>（残4）</small></button></td><td><button class="slot full" disabled>×</button></td><td><button class="slot" data-date="10月7日（水）9:00">○<small>（残5）</small></button></td><td><button class="slot" data-date="10月8日（木）9:00">○<small>（残3）</small></button></td><td><button class="slot limited" data-date="10月9日（金）9:00">▲<small>（残2）</small></button></td><td><button class="slot" data-date="10月10日（土）9:00">○<small>（残4）</small></button></td><td><button class="slot full" disabled>×</button></td></tr>
+      <tr><td>9:30</td><td><button class="slot" data-date="10月5日（月）9:30">○<small>（残5）</small></button></td><td><button class="slot" data-date="10月6日（火）9:30">○<small>（残4）</small></button></td><td><button class="slot full" disabled>×</button></td><td><button class="slot limited" data-date="10月8日（木）9:30">▲<small>（残1）</small></button></td><td><button class="slot" data-date="10月9日（金）9:30">○<small>（残5）</small></button></td><td><button class="slot full" disabled>×</button></td><td><button class="slot" data-date="10月11日（日）9:30">○<small>（残3）</small></button></td></tr>
+      <tr><td>10:00</td><td><button class="slot limited" data-date="10月5日（月）10:00">▲<small>（残2）</small></button></td><td><button class="slot" data-date="10月6日（火）10:00">○<small>（残5）</small></button></td><td><button class="slot" data-date="10月7日（水）10:00">○<small>（残4）</small></button></td><td><button class="slot full" disabled>×</button></td><td><button class="slot" data-date="10月9日（金）10:00">○<small>（残4）</small></button></td><td><button class="slot" data-date="10月10日（土）10:00">○<small>（残5）</small></button></td><td><button class="slot full" disabled>×</button></td></tr>
+      <tr><td>10:30</td><td><button class="slot" data-date="10月5日（月）10:30">○<small>（残5）</small></button></td><td><button class="slot full" disabled>×</button></td><td><button class="slot limited" data-date="10月7日（水）10:30">▲<small>（残2）</small></button></td><td><button class="slot" data-date="10月8日（木）10:30">○<small>（残3）</small></button></td><td><button class="slot full" disabled>×</button></td><td><button class="slot" data-date="10月10日（土）10:30">○<small>（残4）</small></button></td><td><button class="slot" data-date="10月11日（日）10:30">○<small>（残5）</small></button></td></tr>
+    </tbody></table></div>
+    <div class="selectedbox"><div><small>選択中の接種日時</small><strong id="selectedDate">日時を選択してください</strong></div><span class="chip" id="selectedChip">未選択</span></div>
+  </div></section>
+
+  <section class="card" id="patient"><div class="cardhead"><h2><span class="step">2</span>患者情報を入力</h2><span class="legend">必須項目をご入力ください</span></div><div class="cardbody">
+    <div class="formgrid">
+      <div class="field"><label>お名前<span class="req">必須</span></label><input placeholder="例：上井草 太郎"></div>
+      <div class="field"><label>ふりがな<span class="req">必須</span></label><input placeholder="例：かみいぐさ たろう"></div>
+      <div class="field"><label>生年月日<span class="req">必須</span></label><input type="date"></div>
+      <div class="field"><label>電話番号<span class="req">必須</span></label><input inputmode="tel" placeholder="09012345678"></div>
+      <div class="field"><label>郵便番号<span class="req">必須</span></label><input inputmode="numeric" placeholder="167-0023"></div>
+      <div class="field"><label>診察券<span class="req">必須</span></label><select><option>選択してください</option><option>あり</option><option>なし</option></select></div>
+      <div class="field full"><label>住所<span class="req">必須</span></label><input placeholder="東京都杉並区上井草…"></div>
+      <div class="field full"><label>診察券番号</label><input placeholder="診察券をお持ちの場合のみ"></div>
+    </div>
+    <button class="submit" type="button" id="confirmBtn">入力内容を確認する</button>
+  </div></section>
+</div>
+<aside class="side">
+  <div class="summary"><h3>予約内容</h3><div class="summaryrow"><span>接種日時</span><strong id="summaryDate">未選択</strong></div><div class="summaryrow"><span>受付方法</span><strong>WEB予約</strong></div><div class="summaryrow"><span>予約確定</span><strong>確認画面のあとに確定します</strong></div></div>
+  <div class="safety"><h3>予約前にご確認ください</h3><p>入力内容を確認してから予約を確定します。</p><ul><li>未就学児はWEB予約対象外です</li><li>締切後の枠は表示されません</li><li>キャンセルには予約IDが必要です</li></ul></div>
+</aside>
+</div>
+</section>
+
+<section id="cancel" class="content simple"><div class="card"><div class="cardhead"><h2>予約キャンセル</h2></div><div class="cardbody"><div class="danger">予約完了時に表示された予約IDと、生年月日が一致した場合にキャンセルできます。</div><div class="formgrid" style="margin-top:16px"><div class="field full"><label>予約ID<span class="req">必須</span></label><input placeholder="R-YYYYMMDD-HHmm-01"></div><div class="field full"><label>生年月日<span class="req">必須</span></label><input type="date"></div></div><button class="submit" type="button">予約内容を確認する</button></div></div></section>
+
+<section id="inquiry" class="content simple"><div class="card"><div class="cardhead"><h2>お問い合わせ</h2></div><div class="cardbody"><div class="inquiry">予約IDが分からない場合や、WEBで手続きできない場合はこちらからお問い合わせください。</div><div class="formgrid" style="margin-top:16px"><div class="field full"><label>お名前<span class="req">必須</span></label><input></div><div class="field full"><label>電話番号<span class="req">必須</span></label><input inputmode="tel"></div><div class="field full"><label>お問い合わせ内容<span class="req">必須</span></label><textarea></textarea></div></div><button class="submit" type="button">問い合わせ内容を確認する</button></div></div></section>
+</div>
+<div class="bottom"><a href="tel:0369150303">電話する</a><a href="#patient">入力欄へ</a></div>
+<script>
+const nav=document.getElementById('modeNav');
+const buttons=[...nav.querySelectorAll('button')];
+buttons.forEach(btn=>btn.addEventListener('click',()=>{
+  buttons.forEach(b=>b.classList.toggle('active',b===btn));
+  document.querySelectorAll('.content').forEach(c=>c.classList.toggle('active',c.id===btn.dataset.target));
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+document.querySelectorAll('.slot:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.slot').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('selectedDate').textContent=btn.dataset.date;
+  document.getElementById('summaryDate').textContent=btn.dataset.date;
+  document.getElementById('selectedChip').textContent='選択済み';
+}));
+const marker=document.createElement('div');document.getElementById('navWrap').before(marker);
+const sync=()=>nav.classList.toggle('is-stuck',innerWidth<=560&&marker.getBoundingClientRect().top<0);
+addEventListener('scroll',sync,{passive:true});addEventListener('resize',sync);sync();
+</script>
+</body>
+</html>
