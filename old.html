@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>インフルエンザ予防接種 予約</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+body{font-family:system-ui,sans-serif;margin:0;padding:20px;background:#fafafa;color:#222}h1{font-size:20px;margin-bottom:12px}.nav{display:flex;justify-content:space-between;align-items:center;margin:10px 0}.nav button{padding:6px 12px;border:1px solid #ccc;background:#fff;cursor:pointer;border-radius:6px;font-size:22px}.table-wrap{overflow-x:auto;background:#fff;border:1px solid #ddd;margin:0 auto;padding:0 20px}table{border-collapse:collapse;width:100%;min-width:700px}th,td{border:1px solid #ddd;text-align:center;padding:4px}th{background:#f6f6f6;font-size:22px}td.time{background:#f9f9f9;font-weight:600;width:70px;font-size:22px}td.slot{width:45px;height:36px;cursor:pointer;font-weight:600;font-size:21px}td.slot.ok{color:#0a0}td.slot.limited{color:#d90}td.slot.full{color:#aaa;background:#f3f3f3;cursor:default}td.slot.sel{outline:2px solid #1e90ff}.muted{color:#888;margin-top:8px}.form{margin-top:18px;max-width:90%;margin-left:auto;margin-right:auto;background:#fff;padding:12px;border:1px solid #ddd;border-radius:8px}.row{display:flex;gap:8px;margin-bottom:8px;align-items:center}.row label{width:160px;font-size:1.2em}input[type="text"],select{flex:1;font-size:1.2em;padding:8px 10px;border:1px solid #ccc;border-radius:6px;height:2em}.required{color:red;margin-left:6px;font-size:1em}.note-required{color:red;font-size:12px;margin-top:4px;display:block}button.primary{padding:10px 14px;border:0;background:#1e90ff;color:#fff;border-radius:8px;cursor:pointer}#reserveBtn{font-size:2em!important;padding:20px 40px!important;margin-top:16px;margin-bottom:32px;display:inline-block}#cancelBtn{font-size:2em!important;padding:15px 31px!important;margin-top:16px;margin-bottom:32px;display:inline-block;background:#c00!important;color:#fff!important}.birth-wrap{display:flex;align-items:center;gap:6px;flex:1}.birth-wrap input[type="text"]{flex:1}.calendar-btn{cursor:pointer;font-size:18px;background:#fff;border:1px solid #ccc;border-radius:6px;padding:4px 8px}.hint{color:#999;font-size:12px}.mock-note{padding:10px 12px;background:#fff7e6;border:1px solid #f0d59e;border-radius:6px;margin:12px auto;max-width:90%;font-size:14px}
+@media(max-width:700px){body{padding:10px}.nav button{font-size:16px}.nav #weekRange{font-size:14px;font-weight:700}.table-wrap{padding:0;overflow-x:auto}table{min-width:700px}.form,.mock-note{max-width:100%}.row{align-items:stretch;flex-direction:column}.row label{width:auto}.birth-wrap{width:100%}input[type="text"],select{width:100%;box-sizing:border-box}.hint{display:block}}
+</style>
+</head>
+<body>
+<h1>インフルエンザ予防接種 予約フォーム</h1>
+<div class="nav"><button id="prevBtn">‹ 前週</button><div id="weekRange">-</div><button id="nextBtn">次週 ›</button></div>
+<div class="table-wrap"><table id="slotTable"></table></div>
+<div class="mock-note">旧表示確認用モックです。予約・キャンセル・問い合わせの送信処理は行いません。</div>
+<div class="form">
+<div class="row"><label>選択枠ID<span class="required">*</span></label><input id="slotId" type="text" placeholder="カレンダーから選択してください" readonly></div>
+<div class="row"><label>氏名（漢字フル）<span class="required">*</span></label><input type="text" placeholder="例：上井草太郎"></div>
+<div class="row"><label>氏名（ふりがな）<span class="required">*</span></label><input type="text" placeholder="例：かみいぐさたろう"></div>
+<div class="row"><label>生年月日<span class="required">*</span></label><div class="birth-wrap"><input id="birth" type="text" placeholder="YYYYMMDD"><button type="button" class="calendar-btn" id="birthBtn">📅</button></div></div>
+<div class="row"><label>性別</label><select><option>未回答</option><option>男</option><option>女</option></select></div>
+<div class="row"><label>郵便番号<span class="required">*</span></label><input type="text" placeholder="1670023"><span class="hint">ハイフン不要</span></div>
+<div class="row"><label>住所<span class="required">*</span></label><input type="text" placeholder="市区町村・番地・建物名など"></div>
+<div class="row"><label>電話番号<span class="required">*</span></label><input type="text" placeholder="0369150303"></div>
+<div class="row"><label>診察券<span class="required">*</span></label><select style="max-width:200px"><option>無</option><option>有</option><option>有（診察券紛失）</option></select><input type="text" placeholder="診察券番号（有の場合）" style="max-width:240px"></div>
+<div class="row"><span class="note-required">*は必須事項です</span></div>
+<button class="primary" id="reserveBtn" type="button">予約する</button>
+<p style="margin-top:14px;color:#333;font-size:20px;text-align:center;line-height:1.6">コロナワクチン接種も行っております。<br>インフルワクチン接種はWEB予約以外にも診察時間に窓口受付しております。</p>
+</div>
+<div class="form" style="background:#fee;border:2px solid #c00;margin-top:32px">
+<h2 style="color:#c00;margin-top:0">キャンセル手続き</h2>
+<div class="row"><label>予約ID<span class="required">*</span></label><input type="text" placeholder="例：R-20250926-0930-01"></div>
+<div class="row"><label>生年月日<span class="required">*</span></label><div class="birth-wrap"><input id="cancelBirth" type="text" placeholder="YYYYMMDD"><button type="button" class="calendar-btn" id="cancelBirthBtn">📅</button></div></div>
+<div style="margin-top:16px;margin-bottom:16px"><button class="primary" id="cancelBtn" type="button">キャンセルする</button></div>
+<div style="margin-top:16px;text-align:center"><p style="margin-bottom:12px;color:#333;font-size:22px;font-weight:700">予約ID等をお忘れの方は下記よりお問い合わせください</p><div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap"><a href="tel:0369150303" style="padding:10px 24px;font-size:22px;text-decoration:none;color:#fff;background:#007bff;border-radius:6px">電話する</a><a href="https://maps.app.goo.gl/g4bJbsA6JZbAtath9" target="_blank" style="padding:10px 24px;font-size:22px;text-decoration:none;color:#fff;background:#6c757d;border-radius:6px">診療所窓口</a></div></div>
+</div>
+<div class="form" style="background:#eef;margin-top:40px">
+<h2 style="margin-top:0">お問い合わせフォーム</h2>
+<div class="row"><label>お問い合わせ内容<span class="required">*</span></label><input type="text" placeholder="お問い合わせ内容を入力してください"></div>
+<div class="row"><label>お名前<span class="required">*</span></label><input type="text" placeholder="例：上井草太郎"></div>
+<div class="row"><label>生年月日</label><input type="text" placeholder="YYYYMMDD"></div>
+<div class="row"><label>郵便番号</label><input type="text" placeholder="1670023"></div>
+<div class="row"><label>ご住所</label><input type="text" placeholder="市区町村・番地・建物名など"></div>
+<div class="row"><label>電話番号</label><input type="text" placeholder="0369150303"></div>
+<div class="row"><label>予約日・時間</label><input type="text" placeholder="例：2025/10/01 10:00"></div>
+<div class="row"><label>備考</label><input type="text" placeholder="自由記述"></div>
+<div style="margin-top:16px;margin-bottom:16px"><button class="primary" type="button">送信</button></div>
+</div>
+<div style="text-align:center;margin:80px 0"><a href="https://kamiigusa-zaitaku.clinic" target="_blank"><img src="https://kamiigusa-zaitaku.clinic/img/logo.svg" alt="医療法人社団 奏 上井草在宅支援診療所" style="max-width:280px;height:auto;margin-bottom:10px"></a><h2 style="margin:0;font-size:22px">医療法人社団 奏 上井草在宅支援診療所</h2><p style="margin:4px 0;font-size:20px">〒167-0023 東京都杉並区上井草3-33-11</p><p style="margin:4px 0;font-size:18px">TEL: 03-6915-0303 / FAX: 03-6915-0304</p></div>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script><script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+<script>
+const weeks=[
+ {range:'9/28〜10/4',dates:['9/28(日)','9/29(月)','9/30(火)','10/1(水)','10/2(木)','10/3(金)','10/4(土)'],ymd:['20250928','20250929','20250930','20251001','20251002','20251003','20251004']},
+ {range:'10/5〜10/11',dates:['10/5(日)','10/6(月)','10/7(火)','10/8(水)','10/9(木)','10/10(金)','10/11(土)'],ymd:['20251005','20251006','20251007','20251008','20251009','20251010','20251011']}
+];
+const times=['09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00'];
+let wi=0;
+function receptionOpen(di,time){
+ const morningMain=['09:30','10:00','10:30','11:00'];
+ const monSatExtra=['11:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00'];
+ if(di===0||di===3)return false;
+ if(di===1||di===6)return morningMain.includes(time)||monSatExtra.includes(time);
+ if(di===2||di===4||di===5)return morningMain.includes(time);
+ return false;
+}
+function slotState(di,ti){
+ const n=(di*17+ti*11)%20;
+ if(n===0||n===13)return {mark:'×',remain:null,cls:'full'};
+ if(n===3||n===7||n===15)return {mark:'▲',remain:(n%2)+1,cls:'limited'};
+ return {mark:'○',remain:3+((di+ti)%3),cls:'ok'};
+}
+function render(){
+ document.getElementById('weekRange').textContent=weeks[wi].range;
+ const t=document.getElementById('slotTable');
+ t.innerHTML='<tr><th>時間</th>'+weeks[wi].dates.map(d=>'<th>'+d+'</th>').join('')+'</tr>';
+ times.forEach((time,ti)=>{
+  let html='<tr><td class="time">'+time+'</td>';
+  for(let di=0;di<7;di++){
+   if(!receptionOpen(di,time)){html+='<td class="slot full">×</td>';continue;}
+   const st=slotState(di,ti);
+   if(st.mark==='×'){html+='<td class="slot full">×</td>';continue;}
+   const id='S-'+weeks[wi].ymd[di]+'-'+time.replace(':','');
+   html+='<td class="slot '+st.cls+'" data-id="'+id+'">'+st.mark+'（残'+st.remain+'）</td>';
+  }
+  html+='</tr>';t.insertAdjacentHTML('beforeend',html);
+ });
+ t.querySelectorAll('.slot.ok,.slot.limited').forEach(td=>td.onclick=()=>{t.querySelectorAll('.slot.sel').forEach(x=>x.classList.remove('sel'));td.classList.add('sel');document.getElementById('slotId').value=td.dataset.id;});
+}
+document.getElementById('prevBtn').onclick=()=>{wi=Math.max(0,wi-1);render()};
+document.getElementById('nextBtn').onclick=()=>{wi=Math.min(weeks.length-1,wi+1);render()};
+if(window.flatpickr){const fp=flatpickr('#birth',{dateFormat:'Ymd',locale:'ja',allowInput:true});document.getElementById('birthBtn').onclick=()=>fp.open();const fp2=flatpickr('#cancelBirth',{dateFormat:'Ymd',locale:'ja',allowInput:true});document.getElementById('cancelBirthBtn').onclick=()=>fp2.open();}
+render();
+</script>
+</body>
+</html>
