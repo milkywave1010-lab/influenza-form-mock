@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>インフルエンザ予防接種 予約</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+:root{--ink:#2d3331;--muted:#68736f;--bg:#fbf8f2;--paper:#fffdf8;--line:#e7ded0;--green:#387b63;--green-dark:#285b4a;--blue:#3b7195;--orange:#d58a32;--red:#b85c5c;--cream:#f3ecdf;--disabled:#eee9df;--shadow:0 14px 34px rgba(55,75,68,.10)}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:linear-gradient(180deg,#fffdf8 0%,var(--bg) 320px),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.65}a{color:inherit}.page{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:22px 0 60px}.top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding-bottom:18px}.brand-block{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center}.logo{display:block;width:180px;height:auto}.clinic{color:var(--green-dark);font-weight:800;font-size:14px}h1{margin:4px 0 0;font-size:clamp(28px,4vw,42px);line-height:1.25;letter-spacing:0}.lead{margin:10px 0 0;color:var(--muted);font-size:16px}.call{min-width:238px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}.call span{display:block;color:var(--muted);font-size:13px}.call a{color:var(--green-dark);font-size:22px;font-weight:900;text-decoration:none}.mode{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 18px}.mode button{min-height:56px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-weight:850;cursor:pointer}.mode button:nth-child(1){background:var(--green);border-color:var(--green);color:#fff}.mode button:nth-child(2){background:#fff2dc;border-color:#efd3a8;color:#8d5618}.mode button:nth-child(3){background:#eaf4fa;border-color:#c9deeb;color:#346b8c}.mode button.active{box-shadow:inset 0 0 0 2px currentColor}.notice{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:13px 15px;margin-bottom:18px;border:1px solid #efd9b9;border-radius:8px;background:#fff7e9}.notice b{color:var(--orange)}.main{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px;background:#fffaf0;border-bottom:1px solid var(--line)}.panel-head h2{margin:0;font-size:23px;line-height:1.35;letter-spacing:0}.panel-body{padding:18px 20px 22px}.week{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.week button{min-height:42px;padding:9px 14px;border:1px solid #efd3a8;border-radius:6px;background:#fff2dc;color:#8d5618;font:inherit;font-weight:800;cursor:pointer}.week strong{font-size:22px;font-weight:900}.desktop-slots{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff}.desktop-slots th,.desktop-slots td{padding:10px 8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}.desktop-slots th{background:var(--cream);color:var(--green-dark);font-weight:900}.desktop-slots th:first-child,.desktop-slots td:first-child{position:sticky;left:0;z-index:1;background:#fffaf0;font-weight:900}.slot{min-width:58px;min-height:38px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--green-dark);font:inherit;font-weight:900;cursor:pointer}.slot.limited{color:var(--orange)}.slot.full{color:#9a9d99;background:var(--disabled);cursor:default}.slot.selected{background:var(--green);color:#fff}.mobile-days{display:none}.swipe-hint{display:none}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field.phone-field{align-content:start}.field.phone-field input{height:48px}label{font-weight:900;font-size:14px}.req{color:var(--red);margin-left:4px}input,select,textarea{width:100%;min-height:48px;padding:10px 12px;border:1px solid #d2c9ba;border-radius:6px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:120px;resize:vertical}.hint{color:var(--muted);font-size:13px}.submit{width:100%;min-height:56px;margin-top:18px;border:0;border-radius:8px;background:var(--green);color:#fff;font:inherit;font-size:18px;font-weight:900;cursor:pointer}.side{display:grid;gap:18px}.summary{background:var(--green-dark);color:#fff;border-radius:8px;padding:18px;box-shadow:var(--shadow)}.summary h2{margin:0 0 12px;font-size:21px;letter-spacing:0}.summary-row{display:grid;gap:2px;padding:11px 0;border-top:1px solid rgba(255,255,255,.22)}.summary-row span{color:rgba(255,255,255,.74);font-size:13px}.summary-row b{font-size:17px}.warm-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px}.warm-box h3{margin:0 0 8px;font-size:19px}.warm-box p{margin:0;color:var(--muted)}.selection-confirm{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.42fr);gap:18px;align-items:center;padding:20px;border:2px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.selection-confirm.active{border-color:var(--green);background:linear-gradient(135deg,#fff 0%,#eef7f2 100%)}.selection-label{display:block;color:var(--muted);font-size:13px;font-weight:800}.selection-date{display:block;margin-top:3px;color:var(--green-dark);font-size:clamp(24px,4vw,38px);line-height:1.3}.selection-id{padding:14px 16px;border-radius:7px;background:var(--cream)}.selection-id b{display:block;margin-top:3px;font-size:17px}.selection-guide{grid-column:1/-1;color:var(--muted);font-weight:800}.selection-confirm.active .selection-guide{color:var(--green-dark)}.alt-section{display:none}.mobile-sticky{display:none}
+@media(max-width:1100px), (hover:none) and (pointer:coarse){.page{width:min(100% - 20px,1180px);padding-top:14px;padding-bottom:86px}.top,.main{grid-template-columns:1fr}.brand-block{grid-template-columns:1fr;gap:10px}.logo{width:210px}.call{display:none}.mode{grid-template-columns:1fr;position:sticky;top:0;z-index:10;padding:8px 0;background:var(--bg)}.notice{grid-template-columns:1fr}.panel-head{display:block;padding:16px}.panel-body{padding:16px}.week{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}.week button{width:auto;min-width:0;padding-left:6px;padding-right:6px}.desktop-scroll{display:block;max-width:100%;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;scrollbar-gutter:stable;position:relative}.desktop-slots{min-width:880px}.mobile-days{display:none}.day{border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}.day h3{margin:0;padding:12px 14px;background:var(--cream);color:var(--green-dark);font-size:18px}.day-slots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:12px}.day-slots .slot{min-height:48px;border:1px solid var(--line);background:#fff}.day-slots .slot.full{background:var(--disabled)}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}input,select,textarea{min-height:54px;font-size:17px}.field.phone-field input{height:54px}.selection-confirm{grid-template-columns:1fr}.selection-date{font-size:27px}.mobile-sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 -10px 26px rgba(0,0,0,.16)}.mobile-sticky a{min-height:62px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;text-decoration:none}.mobile-sticky a:first-child{background:var(--green)}.mobile-sticky a:last-child{background:var(--blue)}body{font-size:16px}.page{width:min(100% - 12px,1180px)}h1{font-size:25px;white-space:nowrap;letter-spacing:-.12em}.lead{font-size:16px}.mode button{min-height:58px;font-size:17px}.notice{font-size:16px}.panel-head h2{font-size:22px}.hint{font-size:14px}.week button{min-height:50px;font-size:15px}.week strong{font-size:18px;font-weight:900;text-align:center;white-space:nowrap}.swipe-hint{display:flex;align-items:center;justify-content:center;gap:10px;margin:2px 0 10px;padding:8px 12px;border-radius:999px;background:var(--green-dark);color:#fff;font-size:16px;font-weight:900}.desktop-slots{min-width:525px;font-size:14px;overflow:visible}.desktop-slots th,.desktop-slots td{padding:10px 5.33px}.desktop-slots th:not(:first-child),.desktop-slots td:not(:first-child){padding-left:3.55px;padding-right:3.55px}.desktop-slots th:first-child,.desktop-slots td:first-child{position:sticky;left:0;z-index:3;background:#fffaf0;box-shadow:1px 0 0 var(--line)}.desktop-slots tr:first-child th{position:sticky;top:0;z-index:4;background:var(--cream)}.desktop-slots tr:first-child th:first-child{left:0;z-index:6;background:#fffaf0}.slot{min-width:34px;min-height:48px;font-size:18px}.slot-mark,.slot-rest{display:block;font-size:18px;line-height:1.15}.selection-label{font-size:14px}.selection-date{font-size:26px}.selection-id b{font-size:17px}.selection-guide{font-size:16px}label{font-size:16px}input,select,textarea{min-height:56px;font-size:17px;padding:11px}.submit{min-height:58px;font-size:18px}.mobile-sticky a{min-height:58px;font-size:16px}.mode{--mode-collapse:0;row-gap:calc(10px * (1 - var(--mode-collapse)))}.mode button{transition:min-height .05s linear,max-height .05s linear,opacity .05s linear,padding .05s linear,border-width .05s linear;overflow:hidden}.mode button:not(.active){min-height:calc(58px * (1 - var(--mode-collapse)));max-height:calc(58px * (1 - var(--mode-collapse)));padding-top:calc(9px * (1 - var(--mode-collapse)));padding-bottom:calc(9px * (1 - var(--mode-collapse)));opacity:calc(1 - var(--mode-collapse));border-width:calc(1px * (1 - var(--mode-collapse)))}.mode.is-stuck button:not(.active){pointer-events:none}.mode button.active{min-height:58px;max-height:58px}}
+</style>
+<style>
+#loading{text-align:center;margin:16px;font-weight:700;color:var(--red)}
+.birth-wrap{display:flex;align-items:center;gap:6px;width:100%}
+.birth-wrap input{min-width:0;flex:1}
+.calendar-btn{min-width:48px;min-height:48px;border:1px solid #d2c9ba;border-radius:6px;background:#fff;font-size:20px;cursor:pointer}
+.flatpickr-current-month{display:flex;align-items:center;justify-content:center}
+.flatpickr-current-month .flatpickr-monthDropdown-months{width:auto;min-width:0;min-height:0;height:auto;padding:0 1.4em 0 .4em;border:0;border-radius:0;background:transparent;font:inherit}
+.flatpickr-current-month .numInputWrapper{width:7ch}
+.flatpickr-current-month input.cur-year{width:100%;min-height:0;height:auto;padding:0 0 0 .35em;border:0;border-radius:0;background:transparent;font:inherit}
+.required{color:var(--red);margin-left:4px}
+.note-required{color:var(--red);font-size:12px}
+.invalid{border-color:var(--red)!important;background:#fff1f1!important}
+.err{margin-top:10px;color:var(--red);font-weight:700}
+.form-message{margin-top:10px;color:var(--muted)}
+.patient-form{margin:0;padding:18px 20px 22px;border:0;border-radius:0;background:transparent}
+.patient-form .row{display:grid;gap:6px;min-width:0;margin:0;align-content:start}
+.patient-form .row label{width:auto;font-weight:900;font-size:14px}
+.patient-form input,.patient-form select{width:100%;min-height:48px;height:48px;padding:10px 12px;border:1px solid #d2c9ba;border-radius:6px;background:#fff;color:var(--ink);font:inherit}
+.patient-form .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.patient-form .full{grid-column:1/-1}
+.patient-form .hint{color:var(--muted);font-size:13px}.patient-form .privacy-note{color:var(--muted);font-size:14px;font-weight:700}
+.patient-form #reserveBtn{width:100%;min-height:56px;margin-top:18px;border:0;border-radius:8px;background:var(--green);color:#fff;font:inherit;font-size:18px;font-weight:900;cursor:pointer}
+.patient-form #reserveBtn:disabled{opacity:.55}
+.card-number-row[hidden]{display:none}
+#complete{display:none;margin:18px auto 0;padding:18px;border:1px solid var(--line);border-radius:8px;background:var(--paper);box-shadow:var(--shadow)}
+#cancelMsg,#q-msg{margin:12px 0;font-weight:700}
+#q-complete{display:none;margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:8px}
+.clinic-footer{text-align:center;margin:50px 0 20px}
+.clinic-footer img{max-width:280px;height:auto;margin-bottom:10px}
+.clinic-footer h2{margin:0;font-size:22px}
+.clinic-footer p{margin:4px 0}
+#slotTable td.slot{min-width:58px;min-height:38px;border-radius:0}
+#slotTable td.slot.sel{outline:2px solid var(--green);outline-offset:-3px;background:var(--green-soft)}
+#slotTable td.slot.ok{color:var(--green-dark)}
+#slotTable td.slot.limited{color:var(--orange)}
+#slotTable tr.closed-band td{position:static!important;padding:8px 10px;background:#e5e5e5;color:var(--muted);font-weight:800;text-align:center;border-bottom:1px solid var(--line)}
+.mobile-days .hint{padding:12px}
+@media(max-width:1100px), (hover:none) and (pointer:coarse){
+  .patient-form{padding:16px}
+  .patient-form .form-grid{grid-template-columns:1fr}
+  .patient-form .full{grid-column:auto}
+  .patient-form input,.patient-form select{min-height:54px;height:54px;font-size:17px}
+  .calendar-btn{min-width:54px;min-height:54px}
+  #slotTable td.slot{min-width:34px;min-height:48px;font-size:18px;padding-left:0;padding-right:0;vertical-align:middle}
+}
+</style>
+
+<style id="exec-submit-complete-visibility-v1">
+/* [検索ワード: execSubmitCompleteVisibilityV1]
+ * キャンセル／問い合わせ送信後の完了状態を明確化。
+ * 成功後は送信ボタンをグレー表示にして再操作できないことを視覚化する。
+ */
+#cancelMsg.exec-success{
+  margin:18px 0 0;
+  padding:18px;
+  border:2px solid var(--green);
+  border-radius:8px;
+  background:#eef7f2;
+  color:var(--green-dark)!important;
+  font-size:18px;
+  font-weight:900;
+  text-align:center;
+}
+#cancelBtn:disabled,
+#q-sendBtn:disabled{
+  background:var(--disabled)!important;
+  color:#8b8f8c!important;
+  cursor:default!important;
+  opacity:1!important;
+}
+</style>
+
+
+<style id="exec-postal-address-v1">
+/* [検索ワード: execPostalAddressV1]
+ * 予約・問い合わせ共通：郵便番号検索、住所自動入力、番地・建物分離。
+ */
+.postal-action{align-content:start;padding-top:27px}
+.postal-search-btn{width:100%;min-height:48px;padding:10px 12px;border:1px solid var(--green);border-radius:6px;background:#eef7f2;color:var(--green-dark);font:inherit;font-weight:900;cursor:pointer}
+.postal-search-btn:disabled{opacity:.55;cursor:default}
+.address-auto{background:#f6f4ef!important}
+.postal-search-status{display:block;min-height:1.4em;color:var(--muted);font-size:13px;font-weight:700}
+@media(max-width:1100px), (hover:none) and (pointer:coarse){
+  .postal-action{padding-top:0}
+  .postal-search-btn{min-height:54px;font-size:17px}
+  .postal-search-status{font-size:14px}
+}
+</style>
+
+</head>
+<body>
+<main class="page">
+  <section class="top">
+    <div class="brand-block">
+      <a href="#" target="_blank" rel="noopener noreferrer"><img class="logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='48' viewBox='0 0 180 48'%3E%3Crect width='180' height='48' rx='6' fill='%23f3ecdf'/%3E%3Ctext x='90' y='30' text-anchor='middle' font-family='sans-serif' font-size='16' fill='%23285b4a'%3ESAMPLE%3C/text%3E%3C/svg%3E" alt="サンプル診療所"></a>
+      <div><div class="clinic">サンプル診療所</div><h1>インフルエンザ予防接種予約フォーム</h1><p class="lead">接種日時を選び、患者さん情報を入力してください。</p></div>
+    </div>
+    <div class="call"><span>電話で確認する</span><a href="tel:0000000000">00-0000-0000</a></div>
+  </section>
+
+  <div class="mode" aria-label="手続き選択">
+    <button class="active" type="button" data-target="reserve">予約</button>
+    <button type="button" data-target="cancel">キャンセルはこちら</button>
+    <button type="button" data-target="inquiry">お問い合わせはこちら</button>
+  </div>
+
+  <!-- [更新履歴 2026-09-24 09:34 JST] [検索ワード: execReservationIdUnknownGuideV1] 予約ID不明時の案内を「お電話」か「お問い合わせフォーム」をご利用ください。へ復元。 -->
+<!-- [更新履歴 2026-09-24 09:34 JST] [検索ワード: execNoticeParityV1] 実働EXECのご案内表示をGitHubへ同期。1行目は窓口受付案内、2行目は「キャンセル：予約IDが分からない場合は、「お電話」か「お問い合わせフォーム」をご利用ください。」で統一。 -->
+<div class="notice"><b>ご案内</b><div>WEB予約以外にも診療時間内の窓口受付を行っています。</br>キャンセル：予約IDが分からない場合は、「お電話」か「お問い合わせフォーム」をご利用ください。</div></div>
+<!-- [更新履歴 2026-09-24 09:34 JST] [検索ワード: execCancelReservationIdGuideV1] 案内文を「キャンセル：予約IDが分からない場合は、「お電話」か「お問い合わせフォーム」をご利用ください。」へ変更。 -->
+
+  <div id="reserve" class="content">
+    <div class="main">
+      <section class="panel">
+        <div class="panel-head"><h2>1. 接種日時を選ぶ</h2><span class="hint">○ 空きあり / ▲ 残りわずか / × 満員</span></div>
+        <div class="panel-body">
+          <div class="nav week"><button id="prevBtn" type="button">≪前週</button><strong id="weekRange">-</strong><button id="nextBtn" type="button">次週≫</button></div>
+          <div id="loading" style="display:none;">接種状況読み込み中…今しばらくお待ちください。</div>
+          <div class="swipe-hint">← 左右にスワイプ →</div>
+          <div class="table-wrap">
+            <div class="desktop-scroll"><table id="slotTable" class="desktop-slots" aria-label="PC用予約枠一覧"></table></div>
+            <div id="mobileDays" class="mobile-days" aria-label="スマホ用予約枠一覧"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="selection-confirm" id="selectionConfirm" aria-live="polite">
+        <div>
+          <span class="selection-label">選択した接種日時</span>
+          <strong class="selection-date" id="selectedDateText">日付と時間を選んでください</strong>
+        </div>
+        <div class="selection-id">
+          <span class="selection-label">枠ID</span>
+          <b id="selectedSlotId">未選択</b>
+        </div>
+        <div class="selection-guide" id="selectionGuide">空いている日時を選ぶと、患者さん情報入力へ進みます。</div>
+      </section>
+
+      <section class="panel" id="patientPanel">
+        <div class="panel-head"><h2>2. 患者さん情報を入力</h2></div>
+        <div class="form patient-form">
+          <div class="form-grid">
+            <div class="row"><label for="nameKanji">氏名（漢字フル）<span class="required">*</span></label><input id="nameKanji" type="text" placeholder="例：山田太郎"></div>
+            <div class="row"><label for="nameKana">氏名（ふりがな）<span class="required">*</span></label><input id="nameKana" type="text" placeholder="例：やまだたろう"></div>
+            <div class="row"><label for="gender">性別<span class="required">*</span></label><select id="gender"><option value="" selected disabled>選択してください</option><option value="男性">男性</option><option value="女性">女性</option></select></div>
+            <div class="row"><label for="birth">生年月日<span class="required">*</span></label><div class="birth-wrap"><input id="birth" type="text" placeholder="YYYYMMDD"><button type="button" class="calendar-btn" id="birthBtn">📅</button></div></div>
+            <div class="row"><label for="postal">郵便番号<span class="required">*</span></label><input id="postal" type="text" placeholder="100-0001 または 1000001"><span class="hint">ハイフンあり・なしどちらでも可</span><span id="postalStatus" class="postal-search-status"></span></div>
+            <div class="row postal-action"><button type="button" class="postal-search-btn" id="postalSearchBtn" onclick="lookupPostalAddress('postal','addressBase','postalStatus','postalSearchBtn')">郵便番号から住所を自動入力</button></div>
+            <div class="row full"><label for="addressBase">住所（自動入力）<span class="required">*</span></label><select id="addressBase" class="address-auto"><option value="" selected disabled>郵便番号から住所を取得してください</option></select></div>
+            <div class="row"><label for="addressDetail">番地・号<span class="required">*</span></label><input id="addressDetail" type="text" placeholder="例：33-11"></div>
+            <div class="row"><label for="building">マンション名・部屋番号</label><input id="building" type="text" placeholder="例：○○マンション101号室"></div>
+            <div class="row"><label for="tel">電話番号<span class="required">*</span></label><input id="tel" type="text" placeholder="0000000000"></div>
+            <div class="row"><label for="cardFlag">診察券<span class="required">*</span></label><select id="cardFlag"><option value="無">無</option><option value="有">有</option><option value="有（診察券紛失）">有（診察券紛失）</option></select></div>
+            <div id="cardNoRow" class="row full card-number-row" hidden><label for="cardNo">診察券番号<span class="required">*</span></label><input id="cardNo" type="text" placeholder="診察券番号（有の場合）"></div>
+          </div>
+          <input id="slotId" type="hidden">
+          <div class="row"><span class="note-required">*は必須事項です</span></div>
+          <div class="row"><span class="privacy-note">ご入力いただいた個人情報は、インフルエンザ予防接種の予約受付、予約内容の確認、連絡および予約管理のために利用し、これらの目的以外には利用しません。</span></div>
+          <div id="note" class="form-message"></div>
+          <div id="error" class="err"></div>
+          <button class="primary" id="reserveBtn" onclick="doReserve()">予約する</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section id="cancel" class="content alt-section panel">
+    <div class="panel-head"><h2>予約キャンセル</h2></div>
+    <div class="panel-body">
+      <div class="form-grid">
+        <div class="field"><label for="cancelId">予約ID<span class="req">必須</span></label><input id="cancelId" type="text" placeholder="例：R-20250926-0930-01"></div>
+        <div class="field"><label for="cancelBirth">生年月日<span class="req">必須</span></label><div class="birth-wrap"><input id="cancelBirth" type="text" placeholder="YYYYMMDD"><button type="button" class="calendar-btn" id="cancelBirthBtn">📅</button></div></div>
+      </div>
+      <div id="cancelMsg"></div>
+      <button class="submit" id="cancelBtn" style="background:var(--red)" onclick="doCancel()">キャンセルする</button>
+    </div>
+  </section>
+  <section id="inquiry" class="content alt-section panel">
+    <div class="panel-head"><h2>お問い合わせ</h2></div>
+    <div class="panel-body">
+      <div class="form-grid">
+        <div class="field full"><label for="q-content">お問い合わせ内容<span class="req">必須</span></label><input id="q-content" type="text" placeholder="お問い合わせ内容を入力してください"></div>
+        <div class="field"><label for="q-name">お名前<span class="req">必須</span></label><input id="q-name" type="text" placeholder="例：山田太郎"></div>
+        <div class="field"><label for="q-birth">生年月日</label><input id="q-birth" type="text" placeholder="YYYYMMDD"></div>
+        <div class="field"><label for="q-postal">郵便番号</label><input id="q-postal" type="text" placeholder="100-0001 または 1000001"><span class="hint">ハイフンあり・なしどちらでも可</span><span id="q-postalStatus" class="postal-search-status"></span></div>
+        <div class="field postal-action"><button type="button" class="postal-search-btn" id="q-postalSearchBtn" onclick="lookupPostalAddress('q-postal','q-addressBase','q-postalStatus','q-postalSearchBtn')">郵便番号から住所を自動入力</button></div>
+        <div class="field full"><label for="q-addressBase">住所（自動入力）</label><select id="q-addressBase" class="address-auto"><option value="" selected>郵便番号から住所を取得してください</option></select></div>
+        <div class="field"><label for="q-addressDetail">番地・号</label><input id="q-addressDetail" type="text" placeholder="例：33-11"></div>
+        <div class="field"><label for="q-building">マンション名・部屋番号</label><input id="q-building" type="text" placeholder="例：○○マンション101号室"></div>
+        <div class="field"><label for="q-tel">電話番号</label><input id="q-tel" type="text" placeholder="0000000000"></div>
+        <div class="field"><label for="q-datetime">予約日・時間</label><input id="q-datetime" type="text" placeholder="例：2025/10/01 10:00"></div>
+        <div class="field full"><label for="q-note">備考</label><input id="q-note" type="text" placeholder="自由記述"></div>
+      </div>
+      <div id="q-msg"></div>
+      <button class="submit" id="q-sendBtn" style="background:var(--blue)" onclick="doInquiry()">送信</button>
+      <div id="q-complete"><p>お問い合わせありがとうございます。上記の内容を受け付けました。<br>ご回答は営業時間内（水、日、祝を除く）9時〜18時の間でご回答差し上げます。</p><button onclick="window.top.location.href='https://milkywave1010-lab.github.io/influenza-form-mock/current.html'">トップページへ戻る</button></div>
+    </div>
+  </section>
+
+  <section id="complete">
+    <h2>ご予約を受け付けました</h2>
+    <p>※こちらのIDはキャンセル時に使用します。必ずお控えください。</p>
+    <p><b>予約ID:</b> <span id="c-reserveId"></span></p>
+    <p><b>接種日時:</b> <span id="c-datetime"></span></p>
+    <p><b>お名前:</b> <span id="c-nameKanji"></span></p>
+    <p><b>ふりがな:</b> <span id="c-nameKana"></span></p>
+    <p><b>性別:</b> <span id="c-gender"></span></p>
+    <p><b>郵便番号:</b> <span id="c-postal"></span></p>
+    <p><b>住所:</b> <span id="c-address"></span></p>
+    <p><b>電話番号:</b> <span id="c-tel"></span></p>
+    <hr><h3>当日の持ち物</h3><ul><li>診察券</li><li>保険証</li><li>予診票</li></ul>
+    <button onclick="window.top.location.href='https://milkywave1010-lab.github.io/influenza-form-mock/current.html'">トップページへ戻る</button>
+  </section>
+
+  <footer class="clinic-footer">
+    <a href="#" target="_blank" rel="noopener noreferrer"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='48' viewBox='0 0 180 48'%3E%3Crect width='180' height='48' rx='6' fill='%23f3ecdf'/%3E%3Ctext x='90' y='30' text-anchor='middle' font-family='sans-serif' font-size='16' fill='%23285b4a'%3ESAMPLE%3C/text%3E%3C/svg%3E" alt="サンプル診療所"></a>
+    <h2>サンプル診療所</h2>
+    <p><a href="#" target="_blank" rel="noopener noreferrer">〒000-0000 サンプル住所</a></p>
+    <p>TEL: <a href="tel:0000000000">00-0000-0000</a> / FAX: 00-0000-0000</p>
+    <p><a href="#" target="_top">個人情報の取扱いについて</a></p>
+  </footer>
+</main>
+<div class="mobile-sticky"><a href="tel:0000000000">電話する</a><a href="#reserve">予約へ戻る</a></div>
+
+<script>
+  function showComplete(res, payload){
+    // 完了画面に反映
+    document.getElementById('c-reserveId').textContent = res.reserveId || '(不明)';
+
+    // ★予約IDを分解して接種日時を生成
+    let dateStr = '(不明)';
+    if (res.reserveId) {
+      const parts = res.reserveId.split('-'); // ["R","20250926","0930","01"]
+      if (parts.length >= 4) {
+        const rawDate = parts[1], rawTime = parts[2], seq = parts[3];
+        const y = rawDate.substring(0,4);
+        const m = rawDate.substring(4,6);
+        const d = rawDate.substring(6,8);
+        const hh = rawTime.substring(0,2);
+        const mm = rawTime.substring(2,4);
+        dateStr = `${y}年${m}月${d}日 ${hh}:${mm} - ${seq}番目`;
+      }
+    }
+    document.getElementById('c-datetime').textContent = dateStr;
+
+    document.getElementById('c-nameKanji').textContent = payload.nameKanji;
+    document.getElementById('c-nameKana').textContent  = payload.nameKana;
+    document.getElementById('c-gender').textContent    = payload.gender;
+    document.getElementById('c-postal').textContent    = payload.postal;
+    document.getElementById('c-address').textContent   = payload.address;
+    document.getElementById('c-tel').textContent       = payload.tel;
+const completeEl = document.getElementById('complete');
+completeEl.style.display = 'block';
+
+// スマホでも確実にページ上部に移動　2025.10.8追加
+setTimeout(() => {
+  if (completeEl) {
+    completeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}, 500);
+
+}  // ← showComplete 関数を閉じる
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+<script>
+  const $ = s => document.querySelector(s);
+  const fmtKey = d => d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);
+  const WEEK_CACHE_TTL_MS = 15000;
+  let slotsByDate={}, currentWeekStart=null;
+  let scheduleMeta={times:[],activeTimes:[],collapseInactive:false};
+  let activeWeekRequest=0;
+  let weekCacheEpoch=0;
+  const weekCache={};
+  const weekRequests={};
+
+  function getWeekDateKeys(start){
+    return Array.from({length:7},(_,i)=>{
+      const d=new Date(start); d.setDate(start.getDate()+i); return fmtKey(d);
+    });
+  }
+
+  function applySlots(list){
+    slotsByDate={};
+    (list||[]).forEach(s=>(slotsByDate[s.date] ||= []).push(s));
+  }
+
+  function requestWeek(start){
+    const key=fmtKey(start);
+    const requestEpoch=weekCacheEpoch;
+    const cached=weekCache[key];
+    if(cached && Date.now()-cached.fetchedAt<WEEK_CACHE_TTL_MS){
+      return Promise.resolve(cached.slots);
+    }
+    if(weekRequests[key] && weekRequests[key].epoch===weekCacheEpoch){
+      return weekRequests[key].promise;
+    }
+
+    const request=new Promise((resolve,reject)=>{
+      google.script.run.withSuccessHandler(res=>{
+        if(!res||res.ok!==true){
+          reject(new Error((res&&(res.error||res.message))||'枠取得失敗'));
+          return;
+        }
+        const slots=Array.isArray(res.slots)?res.slots:[];
+        if(res.schedule && typeof res.schedule==='object'){
+          scheduleMeta={
+            times:Array.isArray(res.schedule.times)?res.schedule.times:[],
+            activeTimes:Array.isArray(res.schedule.activeTimes)?res.schedule.activeTimes:[],
+            collapseInactive:res.schedule.collapseInactive===true,
+            intervalMinutes:Number(res.schedule.intervalMinutes||30),
+            startTime:String(res.schedule.startTime||''),
+            endTime:String(res.schedule.endTime||'')
+          };
+        }
+        if(requestEpoch===weekCacheEpoch){
+          weekCache[key]={slots:slots,fetchedAt:Date.now()};
+        }
+        resolve(slots);
+      }).withFailureHandler(error=>{
+        reject(error instanceof Error?error:new Error('通信失敗'));
+      }).api_slotsForDates(getWeekDateKeys(start));
+    });
+
+    weekRequests[key]={promise:request,epoch:requestEpoch};
+    request.then(
+      ()=>{if(weekRequests[key]&&weekRequests[key].promise===request)delete weekRequests[key];},
+      ()=>{if(weekRequests[key]&&weekRequests[key].promise===request)delete weekRequests[key];}
+    );
+    return request;
+  }
+
+  function prefetchAdjacentWeeks(start){
+    [-7,7].forEach(offset=>{
+      const adjacent=new Date(start);
+      adjacent.setDate(start.getDate()+offset);
+      requestWeek(adjacent).catch(()=>{});
+    });
+  }
+
+  async function displayWeek(start){
+    const target=new Date(start);
+    target.setHours(0,0,0,0);
+    currentWeekStart=target;
+    const requestId=++activeWeekRequest;
+    const loading=$('#loading');
+    loading.style.display='block';
+
+    try{
+      const list=await requestWeek(target);
+      if(requestId!==activeWeekRequest)return;
+      applySlots(list);
+      renderWeek();
+      prefetchAdjacentWeeks(target);
+    }catch(_){
+      if(requestId===activeWeekRequest)$('#weekRange').textContent='通信失敗・再読み込みを行ってください。';
+    }finally{
+      if(requestId===activeWeekRequest)loading.style.display='none';
+    }
+  }
+
+  function clearWeekCache(){
+    weekCacheEpoch++;
+    Object.keys(weekCache).forEach(key=>delete weekCache[key]);
+  }
+
+  function init(){
+    const today=new Date(); today.setHours(0,0,0,0);
+    const start=new Date(today); start.setDate(today.getDate()-today.getDay());
+    displayWeek(start);
+  }
+
+  function renderWeek(){
+    const start=new Date(currentWeekStart), end=new Date(start); end.setDate(start.getDate()+6);
+    $('#weekRange').textContent=`${start.getFullYear()}年${start.getMonth()+1}月${start.getDate()}日～${end.getMonth()+1}月${end.getDate()}日`;
+    const table=$('#slotTable'); table.innerHTML='';
+    const dow=['日','月','火','水','木','金','土'];
+    const head=document.createElement('tr'); head.innerHTML='<th>時間</th>';
+    for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);head.innerHTML+=`<th>${d.getMonth()+1}/${d.getDate()}(${dow[d.getDay()]})</th>`;}table.appendChild(head);
+
+    const fallbackTimes = [
+      "09:00","09:30","10:00","10:30","11:00","11:30",
+      "12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30",
+      "16:00","16:30","17:00","17:30"
+    ];
+    const times=(Array.isArray(scheduleMeta.times)&&scheduleMeta.times.length)
+      ? scheduleMeta.times
+      : fallbackTimes;
+    const activeTimeSet=new Set(
+      Array.isArray(scheduleMeta.activeTimes) ? scheduleMeta.activeTimes : []
+    );
+    const collapseInactive=scheduleMeta.collapseInactive===true;
+
+    const appendClosedBand=group=>{
+      if(!group.length)return;
+      const row=document.createElement('tr');
+      row.className='closed-band';
+      const label=group.length===1
+        ? `${group[0]}　受付なし`
+        : `${group[0]}～${group[group.length-1]}　受付なし`;
+      row.innerHTML=`<td colspan="8">${label}</td>`;
+      table.appendChild(row);
+    };
+
+    let closedGroup=[];
+    times.forEach(time=>{
+      if(collapseInactive && !activeTimeSet.has(time)){
+        closedGroup.push(time);
+        return;
+      }
+
+      appendClosedBand(closedGroup);
+      closedGroup=[];
+
+      const row=document.createElement('tr');
+      row.innerHTML=`<td class="time">${time}</td>`;
+      for(let i=0;i<7;i++){
+        const d=new Date(start); d.setDate(start.getDate()+i);
+        const k=fmtKey(d);
+        const arr=(slotsByDate[k]||[]).filter(s=>s.time===time);
+        if(arr.length){
+          const s=arr[0];
+          let cls='ok', mark=s.mark||'○';
+          if(s.closed || mark==='×'){ cls='full'; mark='×'; }
+          else if(mark==='▲'){ cls='limited'; }
+          row.innerHTML+=`<td class="slot ${cls}" data-id="${s.slotId}" data-closed="${s.closed?'1':'0'}"><span class="slot-mark">${mark}</span><span class="slot-rest">（残${s.remain}）</span></td>`;
+        }else{
+          row.innerHTML+=`<td class="slot full">×</td>`;
+        }
+      }
+      table.appendChild(row);
+    });
+    appendClosedBand(closedGroup);
+
+    table.querySelectorAll('td.slot.ok,td.slot.limited').forEach(td=>{
+      if(td.dataset.closed==='1') return;
+      td.onclick=()=>{
+        table.querySelectorAll('td.slot.sel').forEach(n=>n.classList.remove('sel'));
+        td.classList.add('sel');
+        $('#slotId').value=td.dataset.id;
+        const selectedDateText=$('#selectedDateText');
+        const selectedSlotId=$('#selectedSlotId');
+        const selectionConfirm=$('#selectionConfirm');
+        const selectionGuide=$('#selectionGuide');
+        const selectedTime=td.parentElement.cells[0].textContent.trim();
+        const selectedDate=new Date(start);
+        selectedDate.setDate(start.getDate()+td.cellIndex-1);
+        if(selectedDateText){
+          selectedDateText.textContent=`${selectedDate.getFullYear()}年${selectedDate.getMonth()+1}月${selectedDate.getDate()}日（${dow[selectedDate.getDay()]}） ${selectedTime}`;
+        }
+        if(selectedSlotId) selectedSlotId.textContent=td.dataset.id;
+        if(selectionGuide) selectionGuide.textContent='接種日時を選択しました。患者さん情報を入力してください。';
+        if(selectionConfirm) selectionConfirm.classList.add('active');
+        if(selectionConfirm){
+          setTimeout(()=>{
+            const top=selectionConfirm.getBoundingClientRect().top+window.pageYOffset-12;
+            window.scrollTo({top:top,left:0,behavior:'smooth'});
+          },120);
+        }
+      };
+    });
+  }
+
+  $('#prevBtn').onclick=()=>{const target=new Date(currentWeekStart);target.setDate(target.getDate()-7);displayWeek(target);};
+  $('#nextBtn').onclick=()=>{const target=new Date(currentWeekStart);target.setDate(target.getDate()+7);displayWeek(target);};
+
+  function markInvalid(el, bad){ if(!el) return; el.classList.toggle('invalid', !!bad); }
+  ['nameKanji','nameKana','birth','gender','postal','addressBase','chome','addressDetail','tel','cardNo'].forEach(id=>{
+    const el = $('#'+id);
+    if(el) el.addEventListener('input', ()=>markInvalid(el,false));
+  });
+  $('#cardFlag').addEventListener('change', ()=>{
+    const f=$('#cardFlag').value, cn=$('#cardNo');
+    if(f==='無' || f==='有（診察券紛失）'){ cn.value=''; markInvalid(cn,false); cn.disabled=true; }
+    else { cn.disabled=false; }
+  });
+  $('#cardFlag').dispatchEvent(new Event('change'));
+
+  const fp = flatpickr("#birth", {
+    dateFormat: "Ymd",
+    locale: "ja",
+    allowInput: true
+  });
+  $('#birthBtn').addEventListener('click', ()=> fp.open());
+
+  function calcAge(b){
+    if(!/^\d{8}$/.test(b))return null;
+    const y=+b.slice(0,4),m=+b.slice(4,6)-1,d=+b.slice(6,8);
+    const today=new Date(), bd=new Date(y,m,d);
+    let age=today.getFullYear()-y;
+    const bty=new Date(today.getFullYear(),m,d);
+    if(today<bty) age--;
+    return age;
+  }
+
+  // [検索ワード: execPostalLookupClientV1]
+  // [検索ワード: execExactAddressCandidatesV2]
+  function normalizePostalInput(value){
+    return String(value||'').replace(/\D/g,'');
+  }
+
+  function setAddressCandidates(selectId,candidates,optional){
+    const select=$('#'+selectId);
+    if(!select) return;
+    const values=Array.isArray(candidates)?candidates.filter(Boolean):[];
+    select.innerHTML='';
+
+    const first=document.createElement('option');
+    first.value='';
+    first.textContent='郵便番号から住所を取得してください';
+    first.selected=true;
+    first.disabled=!optional;
+    select.appendChild(first);
+
+    values.forEach(value=>{
+      const op=document.createElement('option');
+      op.value=String(value);
+      op.textContent=String(value);
+      select.appendChild(op);
+    });
+
+    if(values.length===1){
+      select.value=values[0];
+    }else{
+      select.value='';
+    }
+  }
+
+  function resetAutoAddress(postalId,addressId,statusId){
+    const postal=$('#'+postalId), address=$('#'+addressId), status=$('#'+statusId);
+    if(!postal||!address) return;
+    postal.addEventListener('input',()=>{
+      setAddressCandidates(addressId,[],postalId==='q-postal');
+      markInvalid(address,false);
+      if(status){status.textContent='';status.style.color='';}
+    });
+  }
+
+  function lookupPostalAddress(postalId,addressId,statusId,buttonId){
+    const postal=$('#'+postalId), address=$('#'+addressId), status=$('#'+statusId), btn=$('#'+buttonId);
+    const code=normalizePostalInput(postal && postal.value);
+    if(status){status.textContent='';status.style.color='';}
+    if(!/^\d{7}$/.test(code)){
+      if(status){status.style.color='var(--red)';status.textContent='郵便番号を7桁で入力してください。';}
+      markInvalid(postal,true);
+      return;
+    }
+    markInvalid(postal,false);
+    if(btn){btn.disabled=true;btn.textContent='住所を検索中…';}
+    google.script.run.withSuccessHandler(res=>{
+      if(res&&res.ok){
+        const candidates=Array.isArray(res.candidates)&&res.candidates.length?res.candidates:[res.address].filter(Boolean);
+        setAddressCandidates(addressId,candidates,postalId==='q-postal');
+        markInvalid(address,!address.value);
+        if(status){
+          status.style.color='var(--green-dark)';
+          status.textContent=candidates.length>1?'住所候補を取得しました。該当する住所を選択してください。':'住所を自動入力しました。';
+        }
+      }else{
+        setAddressCandidates(addressId,[],postalId==='q-postal');
+        if(status){status.style.color='var(--red)';status.textContent=(res&&res.message)||'住所を取得できませんでした。';}
+      }
+      if(btn){btn.disabled=false;btn.textContent='郵便番号から住所を自動入力';}
+    }).withFailureHandler(_=>{
+      setAddressCandidates(addressId,[],postalId==='q-postal');
+      if(status){status.style.color='var(--red)';status.textContent='住所検索で通信エラーが発生しました。';}
+      if(btn){btn.disabled=false;btn.textContent='郵便番号から住所を自動入力';}
+    }).app_lookupPostalAddress(code);
+  }
+
+  setAddressCandidates('addressBase',[],false);
+  setAddressCandidates('q-addressBase',[],true);
+  resetAutoAddress('postal','addressBase','postalStatus');
+  resetAutoAddress('q-postal','q-addressBase','q-postalStatus');
+  ['q-content','q-name'].forEach(id=>{
+    const el=$('#'+id);
+    if(el) el.addEventListener('input',()=>markInvalid(el,false));
+  });
+
+  function doReserve(){
+    $('#error').textContent=''; $('#note').textContent='';
+    const reserveBtn=$('#reserveBtn');
+    reserveBtn.disabled=true;
+    const payload={
+      slotId:   $('#slotId').value.trim(),
+      nameKanji:$('#nameKanji').value.trim(),
+      nameKana: $('#nameKana').value.trim(),
+      birth:    $('#birth').value.trim(),
+      gender:   $('#gender').value,
+      postal:   normalizePostalInput($('#postal').value),
+      addressBase: $('#addressBase').value.trim(),
+      addressDetail: $('#addressDetail').value.trim(),
+      building: $('#building').value.trim(),
+      tel:      $('#tel').value.trim(),
+      cardFlag: $('#cardFlag').value,
+      cardNo:   $('#cardNo').value.trim(),
+      channel: 'WEB'
+    };
+    payload.address=[(payload.addressBase+payload.addressDetail).trim(),payload.building].filter(Boolean).join(' ');
+
+    const miss=[];
+    if(!payload.slotId)   miss.push('slotId');
+    if(!payload.nameKanji)miss.push('nameKanji');
+    if(!payload.nameKana) miss.push('nameKana');
+    if(!payload.birth)    miss.push('birth');
+    if(!payload.gender)   miss.push('gender');
+    if(!payload.postal || !/^\d{7}$/.test(payload.postal)) miss.push('postal');
+    if(!payload.addressBase)   miss.push('addressBase');
+    if(!payload.addressDetail) miss.push('addressDetail');
+    if(!payload.tel)           miss.push('tel');
+    if(payload.cardFlag==='有' && !payload.cardNo) miss.push('cardNo');
+    ['slotId','nameKanji','nameKana','birth','gender','postal','addressBase','addressDetail','tel','cardNo'].forEach(id=>{
+      const need = miss.includes(id);
+      if($('#'+id)) markInvalid($('#'+id), need);
+    });
+    if(miss.length){
+      $('#error').textContent='未入力があります';
+      reserveBtn.disabled=false;
+      return;
+    }
+
+    const age=calcAge(payload.birth);
+    if(age!==null && age<6){
+      $('#error').textContent='当院では未就学児の接種は行っておりません。お近くの小児科までお問い合わせください。';
+      reserveBtn.disabled=false;
+      return;
+    }
+
+    $('#note').textContent='送信中…';
+    google.script.run.withSuccessHandler(res=>{
+      if(!res||res.ok===false){
+        $('#error').textContent=(res&&(res.message||res.error))||'処理失敗';
+        $('#note').textContent='';
+        reserveBtn.disabled=false;
+        if(res && res.miss){ res.miss.forEach(id=>markInvalid($('#'+id),true)); }
+        return;
+      }
+
+      // フォームや枠表示を隠す
+      document.querySelector('.form').style.display = 'none';
+      document.querySelector('.nav').style.display = 'none';
+      document.querySelector('.table-wrap').style.display = 'none';
+
+      // 完了画面に反映
+      showComplete(res, payload);
+
+    }).withFailureHandler(_=>{
+      $('#error').textContent='通信エラー';
+      $('#note').textContent='';
+      reserveBtn.disabled=false;
+    }).app_reserve(payload);
+  }
+
+  //キャンセル枠の取り扱い部分
+  function doCancel(){
+    const reserveId = $('#cancelId').value.trim();
+    const birth     = $('#cancelBirth').value.trim();
+    $('#cancelMsg').textContent = '';
+
+    if(!reserveId || !birth){
+      $('#cancelMsg').textContent = '予約IDと生年月日を入力してください。';
+      return;
+    }
+
+    google.script.run.withSuccessHandler(res=>{
+      if(res.ok){
+        $('#cancelMsg').style.color='#060';
+        $('#cancelMsg').classList.add('exec-success');
+        $('#cancelMsg').textContent = 'キャンセルを受け付けました。※キャンセル確定処理済み';
+        $('#cancelBtn').disabled=true;
+        clearWeekCache();
+        if(currentWeekStart) displayWeek(currentWeekStart);
+      }else{
+        $('#cancelMsg').classList.remove('exec-success');
+        $('#cancelMsg').style.color='#c00';
+        $('#cancelMsg').textContent = res.message || 'キャンセル処理に失敗しました。';
+      }
+    }).withFailureHandler(_=>{
+      $('#cancelMsg').classList.remove('exec-success');
+      $('#cancelMsg').style.color='#c00';
+      $('#cancelMsg').textContent = '通信エラーが発生しました。';
+    }).app_cancelReservation(reserveId, birth);
+  }
+  // ▼問い合わせフォーム追加ここから
+function doInquiry(){
+  const btn = document.getElementById("q-sendBtn");
+  const msg = document.getElementById("q-msg");
+  const payload = {
+    content:  document.getElementById("q-content").value.trim(),
+    name:     document.getElementById("q-name").value.trim(),
+    birth:    document.getElementById("q-birth").value.trim(),
+    postal:   normalizePostalInput(document.getElementById("q-postal").value),
+    addressBase: document.getElementById("q-addressBase").value.trim(),
+    addressDetail: document.getElementById("q-addressDetail").value.trim(),
+    building: document.getElementById("q-building").value.trim(),
+    tel:      document.getElementById("q-tel").value.trim(),
+    datetime: document.getElementById("q-datetime").value.trim(),
+    note:     document.getElementById("q-note").value.trim()
+  };
+  const inquiryMiss=[];
+  if(!payload.content) inquiryMiss.push('q-content');
+  if(!payload.name) inquiryMiss.push('q-name');
+  ['q-content','q-name'].forEach(id=>markInvalid(document.getElementById(id),inquiryMiss.includes(id)));
+  if(inquiryMiss.length){
+    msg.style.display='block';
+    msg.style.color='#c00';
+    msg.textContent='未入力があります';
+    btn.disabled=false;
+    return;
+  }
+  msg.textContent='';
+  btn.disabled = true;
+  google.script.run.withSuccessHandler(res=>{
+    if(res.ok){
+      document.getElementById("q-msg").style.display="none";
+      document.getElementById("q-complete").style.display="block";
+    }else{
+      document.getElementById("q-msg").style.color="#c00";
+      document.getElementById("q-msg").textContent=res.message||"送信失敗しました";
+      btn.disabled=false;
+    }
+  }).withFailureHandler(_=>{
+    document.getElementById("q-msg").style.color="#c00";
+    document.getElementById("q-msg").textContent="通信エラー";
+    btn.disabled=false;
+  }).app_inquiry(payload);
+}
+// ▲問い合わせフォーム追加ここまで
+
+
+  const fpCancel = flatpickr("#cancelBirth", {
+    dateFormat: "Ymd",
+    locale: "ja",
+    allowInput: true
+  });
+  document.getElementById("cancelBirthBtn").addEventListener("click", ()=> fpCancel.open());
+
+  window.onload=init;
+  </script>
+<script>
+(function(){
+  const modeButtons=document.querySelectorAll('.mode button');
+  const contents=document.querySelectorAll('.content');
+  const modeNames={
+    reserve:{active:'予約',inactive:'予約はこちら'},
+    cancel:{active:'キャンセル',inactive:'キャンセルはこちら'},
+    inquiry:{active:'お問い合わせ',inactive:'お問い合わせはこちら'}
+  };
+  function syncModeLabels(activeTarget){
+    modeButtons.forEach(function(item){
+      const names=modeNames[item.dataset.target];
+      item.textContent=item.dataset.target===activeTarget?names.active:names.inactive;
+    });
+  }
+  modeButtons.forEach(function(button){
+    button.addEventListener('click',function(){
+      modeButtons.forEach(function(item){item.classList.remove('active');});
+      button.classList.add('active');
+      contents.forEach(function(content){content.style.display='none';});
+      document.getElementById(button.dataset.target).style.display='block';
+      syncModeLabels(button.dataset.target);
+    });
+  });
+  syncModeLabels('reserve');
+
+  const modeNav=document.querySelector('.mode');
+  if(modeNav){
+    const modeSentinel=document.createElement('div');
+    modeSentinel.setAttribute('aria-hidden','true');
+    modeNav.parentNode.insertBefore(modeSentinel,modeNav);
+    const collapseDistance=130;
+    const syncStickyMode=function(){
+      if(window.matchMedia('(max-width:1100px), (hover:none) and (pointer:coarse)').matches){
+        const start=modeSentinel.getBoundingClientRect().top+window.pageYOffset;
+        const progress=Math.max(0,Math.min(1,(window.pageYOffset-start)/collapseDistance));
+        modeNav.style.setProperty('--mode-collapse',progress.toFixed(3));
+        modeNav.classList.toggle('is-stuck',progress>=0.999);
+      }else{
+        modeNav.style.removeProperty('--mode-collapse');
+        modeNav.classList.remove('is-stuck');
+      }
+    };
+    window.addEventListener('scroll',syncStickyMode,{passive:true});
+    window.addEventListener('resize',syncStickyMode);
+    syncStickyMode();
+  }
+
+  const cardFlag=document.getElementById('cardFlag');
+  const cardNoRow=document.getElementById('cardNoRow');
+  function syncCardRow(){cardNoRow.hidden=cardFlag.value!=='有';}
+  cardFlag.addEventListener('change',syncCardRow);
+  syncCardRow();
+
+  const table=document.getElementById('slotTable');
+  const mobile=document.getElementById('mobileDays');
+  const selectedText=document.getElementById('selectedSlotId');
+
+  function syncSelected(){
+    selectedText.textContent=document.getElementById('slotId').value||'未選択';
+  }
+
+  function renderMobile(){
+    if(!table.rows.length)return;
+    mobile.innerHTML='';
+    const headers=Array.from(table.rows[0].cells).slice(1).map(function(cell){return cell.textContent.trim();});
+    headers.forEach(function(header,index){
+      const article=document.createElement('article');
+      article.className='day';
+      const title=document.createElement('h3');
+      title.textContent=header;
+      article.appendChild(title);
+      const list=document.createElement('div');
+      list.className='day-slots';
+
+      Array.from(table.rows).slice(1).forEach(function(row){
+        const source=row.cells[index+1];
+        if(!source)return;
+        const time=row.cells[0].textContent.trim();
+        const button=document.createElement('button');
+        button.type='button';
+        button.className='slot '+(source.classList.contains('full')?'full':source.classList.contains('limited')?'limited':'');
+        button.textContent=time+' '+source.textContent.trim();
+        button.disabled=source.classList.contains('full');
+        if(!button.disabled){
+          button.addEventListener('click',function(){
+            source.click();
+            document.querySelectorAll('#mobileDays .slot').forEach(function(item){item.classList.remove('selected');});
+            button.classList.add('selected');
+            syncSelected();
+          });
+        }
+        list.appendChild(button);
+      });
+
+      article.appendChild(list);
+      mobile.appendChild(article);
+    });
+  }
+
+  table.addEventListener('click',function(){setTimeout(syncSelected,0);});
+  new MutationObserver(renderMobile).observe(table,{childList:true,subtree:true});
+  renderMobile();
+
+  const calendarScroll=document.querySelector('.desktop-scroll');
+  if(calendarScroll){
+    let lastX=0,lastY=0;
+    calendarScroll.addEventListener('touchstart',function(e){if(e.touches.length!==1)return;lastX=e.touches[0].clientX;lastY=e.touches[0].clientY;},{passive:true});
+    calendarScroll.addEventListener('touchmove',function(e){
+      if(e.touches.length!==1)return;
+      const x=e.touches[0].clientX,y=e.touches[0].clientY;
+      const dx=x-lastX,dy=y-lastY;
+      lastX=x;lastY=y;
+      if(Math.abs(dy)<=Math.abs(dx))return;
+      const atTop=calendarScroll.scrollTop<=0;
+      const atBottom=calendarScroll.scrollTop+calendarScroll.clientHeight>=calendarScroll.scrollHeight-1;
+      if((atTop&&dy>0)||(atBottom&&dy<0)){
+        e.preventDefault();
+        window.scrollBy(0,-dy*0.7);
+      }
+    },{passive:false});
+  }
+})();
+</script>
+
+<style id="exec-mobile-phone-birth-wheel-v1">
+/* [検索ワード: execMobilePhoneBirthWheelV1]
+ * iPhone / Androidスマホ限定。生年月日のみ年・月・日selectで入力する。
+ * PCのFlatpickrは変更しない。
+ */
+.mobile-birth-wheel-v1{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:8px;width:100%}
+.mobile-birth-wheel-v1 select{width:100%;min-width:0;min-height:56px;padding:0 8px;border:1px solid #d2c9ba;border-radius:6px;background:#fff;color:var(--ink);font:inherit;font-size:17px;text-align:center;text-align-last:center}
+</style>
+<script id="exec-mobile-phone-birth-wheel-v1-script">
+(() => {
+
+  function pad2(n){return String(n).padStart(2,'0');}
+  function parseBirth(value){const digits=String(value||'').replace(/\D/g,'');if(!/^\d{8}$/.test(digits))return null;return{y:Number(digits.slice(0,4)),m:Number(digits.slice(4,6)),d:Number(digits.slice(6,8))};}
+  function addOption(select,value,label){const o=document.createElement('option');o.value=value;o.textContent=label;select.appendChild(o);}
+  function build(id,buttonId){
+    const input=document.getElementById(id);if(!input||input.dataset.mobileBirthWheelV1==='true')return;
+    input.dataset.mobileBirthWheelV1='true';
+    if(input._flatpickr)input._flatpickr.destroy();
+    const button=buttonId?document.getElementById(buttonId):null;if(button)button.style.display='none';
+    const required=input.required;input.required=false;input.style.display='none';input.setAttribute('aria-hidden','true');
+    const wheel=document.createElement('div');wheel.className='mobile-birth-wheel-v1';wheel.dataset.for=id;
+    const year=document.createElement('select'),month=document.createElement('select'),day=document.createElement('select');
+    year.id=id+'-mobile-year';month.id=id+'-mobile-month';day.id=id+'-mobile-day';
+    year.setAttribute('aria-label','年');month.setAttribute('aria-label','月');day.setAttribute('aria-label','日');
+    year.required=required;month.required=required;day.required=required;
+    addOption(year,'','年');addOption(month,'','月');addOption(day,'','日');
+    function birthYearLabel(y){if(y>=2020)return `${y}（令和${y-2018}）年`;if(y===2019)return `${y}（平成31／令和元）年`;if(y>=1990)return `${y}（平成${y-1988}）年`;if(y===1989)return `${y}（昭和64／平成元）年`;if(y>=1927)return `${y}（昭和${y-1925}）年`;if(y===1926)return `${y}（大正15／昭和元）年`;if(y>=1913)return `${y}（大正${y-1911}）年`;if(y===1912)return `${y}（明治45／大正元）年`;return `${y}（明治${y-1867}）年`;}const currentYear=new Date().getFullYear();for(let y=currentYear;y>=1900;y--)addOption(year,String(y),birthYearLabel(y));for(let m=1;m<=12;m++)addOption(month,String(m),`${m}月`);
+    function rebuildDays(preferred){const keep=preferred||day.value;while(day.options.length>1)day.remove(1);const y=Number(year.value),m=Number(month.value);const max=y&&m?new Date(y,m,0).getDate():31;for(let d=1;d<=max;d++)addOption(day,String(d),`${d}日`);if(keep&&Number(keep)<=max)day.value=String(Number(keep));}
+    function sync(){const y=year.value,m=month.value,d=day.value;input.value=(y&&m&&d)?`${y}${pad2(m)}${pad2(d)}`:'';input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));}
+    function hydrate(){const p=parseBirth(input.value);year.value=p?String(p.y):'';month.value=p?String(p.m):'';rebuildDays(p?String(p.d):'');day.value=p?String(p.d):'';}
+    year.addEventListener('change',()=>{rebuildDays();sync();});month.addEventListener('change',()=>{rebuildDays();sync();});day.addEventListener('change',sync);
+    wheel.append(year,month,day);input.insertAdjacentElement('afterend',wheel);
+    const label=document.querySelector(`label[for="${id}"]`);if(label)label.setAttribute('for',year.id);
+    hydrate();
+  }
+  build('birth','birthBtn');
+  build('cancelBirth','cancelBirthBtn');
+  build('q-birth',null);
+})();
+</script>
+
+
+<script id="mock-only-gas-shim">
+(() => {
+  function makeSlots(dateKeys){
+    const times=["09:00","09:30","10:00","10:30","11:00","11:30","14:00","14:30","15:00","15:30","16:00","16:30"];
+    const slots=[];
+    (dateKeys||[]).forEach((key,di)=>times.forEach((time,ti)=>{const remain=((di+ti)%5)+1;slots.push({date:key,time,slotId:"S-"+String(key).replace(/\D/g,"")+"-"+time.replace(":",""),remain,mark:remain<=2?"▲":"○",closed:false});}));
+    return {ok:true,slots,schedule:{times,activeTimes:times,collapseInactive:true,intervalMinutes:30,startTime:"09:00",endTime:"16:30"}};
+  }
+  function makeRun(){
+    let success=()=>{},failure=()=>{};
+    const api={
+      withSuccessHandler(fn){success=typeof fn==="function"?fn:()=>{};return api;},
+      withFailureHandler(fn){failure=typeof fn==="function"?fn:()=>{};return api;},
+      api_slotsForDates(arg){setTimeout(()=>success(makeSlots(arg)),120);return api;},
+      app_lookupPostalAddress(code){
+        const digits=String(code||"").replace(/\D/g,"");
+        setTimeout(()=>/^\d{7}$/.test(digits)
+          ? success({ok:true,postal:digits,address:"東京都千代田区千代田",candidates:["東京都千代田区千代田","東京都千代田区千代田","東京都千代田区千代田"]})
+          : success({ok:false,message:"郵便番号を7桁で入力してください。"}),250);
+        return api;
+      },
+      app_reserve(payload){setTimeout(()=>success({ok:true,reserveId:"R-20260930-0930-01"}),250);return api;},
+      app_cancelReservation(){setTimeout(()=>success({ok:true,message:"キャンセル処理が完了しました。"}),250);return api;},
+      app_inquiry(){setTimeout(()=>success({ok:true}),250);return api;}
+    };return api;
+  }
+  window.google=window.google||{};window.google.script=window.google.script||{};
+  Object.defineProperty(window.google.script,"run",{configurable:true,get(){return makeRun();}});
+})();
+</script>
+</body>
+</html>
