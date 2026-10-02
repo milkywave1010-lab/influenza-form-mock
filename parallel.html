@@ -8,6 +8,7 @@
  * - 2026.9.30 住所入力：上記変更を撤回。郵便番号API自動入力を継続し、住所は町域まで自動入力、丁目・番地・号を手入力へ変更
  * - 2026.9.30 住所表示：自動入力された住所候補を太字表示へ変更
  * - 2026.10.2 予約（スマホ）：接種日時を選んだ後の移動位置を修正。上部に貼り付く「予約」ボタンの下に「選択した接種日時」のカードの上端が来るようにし、カードがボタンの下にめり込まないようにした。PCは変更なし
+ * - 2026.10.2 「トップページへ戻る」ボタン（予約完了・問い合わせ完了の2か所）：古いデプロイのURL直書きをやめ、今開いている予約画面のURL（webAppUrl。個人情報リンクと同じ仕組み）へ戻るよう変更 [検索ワード: topPageUrlCurrentV1]
  * - 既存表記・既存レイアウトは無断変更しない
  -->
 <!doctype html>
@@ -225,7 +226,7 @@ window.google={script:{run:new Proxy({},{get(_,k){return runner()[k]}})}};})();
       </div>
       <div id="q-msg"></div>
       <button class="submit" id="q-sendBtn" style="background:var(--blue)" onclick="doInquiry()">送信</button>
-      <div id="q-complete"><p>お問い合わせありがとうございます。上記の内容を受け付けました。<br>ご回答は営業時間内（水、日、祝を除く）9時〜18時の間でご回答差し上げます。</p><button onclick="window.top.location.href='#'">トップページへ戻る</button></div>
+      <div id="q-complete"><p>お問い合わせありがとうございます。上記の内容を受け付けました。<br>ご回答は営業時間内（水、日、祝を除く）9時〜18時の間でご回答差し上げます。</p><button data-top-url="#" onclick="window.top.location.href=this.dataset.topUrl">トップページへ戻る</button></div>
     </div>
   </section>
 
@@ -241,7 +242,7 @@ window.google={script:{run:new Proxy({},{get(_,k){return runner()[k]}})}};})();
     <p><b>住所:</b> <span id="c-address"></span></p>
     <p><b>電話番号:</b> <span id="c-tel"></span></p>
     <hr><h3>当日の持ち物</h3><ul><li>診察券</li><li>保険証</li><li>予診票</li></ul>
-    <button onclick="window.top.location.href='#'">トップページへ戻る</button>
+    <button data-top-url="#" onclick="window.top.location.href=this.dataset.topUrl">トップページへ戻る</button>
   </section>
 
   <footer class="clinic-footer">
