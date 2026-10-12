@@ -9,6 +9,7 @@
  * - 2026.9.30 住所表示：自動入力された住所候補を太字表示へ変更
  * - 2026.10.2 予約（スマホ）：接種日時を選んだ後の移動位置を修正。上部に貼り付く「予約」ボタンの下に「選択した接種日時」のカードの上端が来るようにし、カードがボタンの下にめり込まないようにした。PCは変更なし
  * - 2026.10.2 「トップページへ戻る」ボタン（予約完了・問い合わせ完了の2か所）：古いデプロイのURL直書きをやめ、今開いている予約画面のURL（webAppUrl。個人情報リンクと同じ仕組み）へ戻るよう変更 [検索ワード: topPageUrlCurrentV1]
+ * - 2026.10.12 お問い合わせ：本体（web.html）と同じ形に変更。「回答希望先」（不要／電話番号／メールアドレス。必須）を追加し、選んだ方の入力欄を1つにまとめた。生年月日は回答希望先の下へ。今までの「電話番号」の欄は外した [検索ワード: inquiryReplyChoiceV1]
  * - 既存表記・既存レイアウトは無断変更しない
  -->
 <!doctype html>
@@ -120,6 +121,23 @@ window.google={script:{run:new Proxy({},{get(_,k){return runner()[k]}})}};})();
 }
 </style>
 
+<style id="exec-inquiry-reply-v1">
+/* [検索ワード: inquiryReplyChoiceV1] 2026.10.12
+ * お問い合わせ：「回答希望先」（不要／電話番号／メールアドレス）と、その右の入力欄。
+ * PCでは「回答希望先」「生年月日」「郵便番号」を必ず左の列から始める（お名前の右と、生年月日の右は空ける）。
+ */
+.q-reply-field,.q-birth-field,.q-postal-field{grid-column:1}
+.q-reply-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.q-reply-tabs button{min-height:48px;padding:0 4px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-weight:850;font-size:15px;cursor:pointer;white-space:nowrap}
+.q-reply-tabs button.on{background:var(--green);border-color:var(--green);color:#fff}
+.q-reply-tabs.q-reply-miss button{border-color:var(--red);background:#fff1f1}
+.q-contact-field.on input{border:2px solid var(--green);background:#eef7f2}
+.q-contact-field.on input:focus-visible{outline:2px solid var(--green);outline-offset:1px}   /* 打っている最中の枠も緑にそろえる */
+.q-contact-field input:disabled{background:var(--disabled);color:var(--muted)}
+@media(max-width:1100px), (hover:none) and (pointer:coarse){
+  .q-reply-tabs button{font-size:14px}
+}
+</style>
 </head>
 <body><div style="background:#1f4d3f;color:#fff;font:700 13px/1.6 sans-serif;padding:6px 12px;text-align:center">修正版（パラレルワールド）｜ダミーデータ・予約は実際には入りません</div>
 <main class="page">
@@ -214,19 +232,21 @@ window.google={script:{run:new Proxy({},{get(_,k){return runner()[k]}})}};})();
       <div class="form-grid">
         <div class="field full"><label for="q-content">お問い合わせ内容<span class="req">必須</span></label><input id="q-content" type="text" placeholder="お問い合わせ内容を入力してください"></div>
         <div class="field"><label for="q-name">お名前<span class="req">必須</span></label><input id="q-name" type="text" placeholder="例：山田太郎"></div>
-        <div class="field"><label for="q-birth">生年月日</label><input id="q-birth" type="text" placeholder="YYYYMMDD"></div>
-        <div class="field"><label for="q-postal">郵便番号</label><input id="q-postal" type="text" placeholder="000-0000 または 0000000"><span class="hint">ハイフンあり・なしどちらでも可</span><span id="q-postalStatus" class="postal-search-status"></span></div>
+        <!-- [検索ワード: inquiryReplyChoiceV1] 2026.10.12 回答希望先（必須）と、選んだ方の入力欄。生年月日はこの下へ移した -->
+        <div class="field q-reply-field"><label id="q-replyLabel">回答希望先<span class="req">必須</span></label><div class="q-reply-tabs" id="q-replyTabs" role="group" aria-labelledby="q-replyLabel"><button type="button" data-reply="none" aria-pressed="false" onclick="setInquiryReply('none')">不要</button><button type="button" data-reply="tel" aria-pressed="false" onclick="setInquiryReply('tel')">電話番号</button><button type="button" data-reply="mail" aria-pressed="false" onclick="setInquiryReply('mail')">メールアドレス</button></div></div>
+        <div class="field q-contact-field" id="q-contactField"><label for="q-contact" id="q-contactLabel">電話番号 / メールアドレス</label><input id="q-contact" type="text" placeholder="回答希望先を選んでください" disabled></div>
+        <div class="field q-birth-field"><label for="q-birth">生年月日</label><input id="q-birth" type="text" placeholder="YYYYMMDD"></div>
+        <div class="field q-postal-field"><label for="q-postal">郵便番号</label><input id="q-postal" type="text" placeholder="000-0000 または 0000000"><span class="hint">ハイフンあり・なしどちらでも可</span><span id="q-postalStatus" class="postal-search-status"></span></div>
         <div class="field postal-action"><button type="button" class="postal-search-btn" id="q-postalSearchBtn" onclick="lookupPostalAddress('q-postal','q-addressBase','q-postalStatus','q-postalSearchBtn')">郵便番号から住所を自動入力</button></div>
         <div class="field full"><label for="q-addressBase">住所（自動入力）</label><select id="q-addressBase" class="address-auto"><option value="" selected>郵便番号から住所を取得してください</option></select></div>
         <div class="field"><label for="q-addressDetail">丁目・番地・号</label><input id="q-addressDetail" type="text" placeholder="例：3-33-11"></div>
         <div class="field"><label for="q-building">マンション名・部屋番号</label><input id="q-building" type="text" placeholder="例：○○マンション101号室"></div>
-        <div class="field"><label for="q-tel">電話番号</label><input id="q-tel" type="text" placeholder="0000000000"></div>
         <div class="field"><label for="q-datetime">予約日・時間</label><input id="q-datetime" type="text" placeholder="例：2025/10/01 10:00"></div>
         <div class="field full"><label for="q-note">備考</label><input id="q-note" type="text" placeholder="自由記述"></div>
       </div>
       <div id="q-msg"></div>
       <button class="submit" id="q-sendBtn" style="background:var(--blue)" onclick="doInquiry()">送信</button>
-      <div id="q-complete"><p>お問い合わせありがとうございます。上記の内容を受け付けました。<br>ご回答は営業時間内（水、日、祝を除く）9時〜18時の間でご回答差し上げます。</p><button data-top-url="#" onclick="window.top.location.href=this.dataset.topUrl">トップページへ戻る</button></div>
+      <div id="q-complete"><p>お問い合わせありがとうございます。上記の内容を受け付けました。<span id="q-completeReply"><br>ご回答は営業時間内（水、日、祝を除く）9時〜18時の間でご回答差し上げます。</span></p><button data-top-url="#" onclick="window.top.location.href=this.dataset.topUrl">トップページへ戻る</button></div>
     </div>
   </section>
 
@@ -617,7 +637,7 @@ setTimeout(() => {
   setAddressCandidates('q-addressBase',[],true);
   resetAutoAddress('postal','addressBase','postalStatus');
   resetAutoAddress('q-postal','q-addressBase','q-postalStatus');
-  ['q-content','q-name'].forEach(id=>{
+  ['q-content','q-name','q-contact'].forEach(id=>{
     const el=$('#'+id);
     if(el) el.addEventListener('input',()=>markInvalid(el,false));
   });
@@ -727,9 +747,57 @@ setTimeout(() => {
     }).app_cancelReservation(reserveId, birth);
   }
   // ▼問い合わせフォーム追加ここから
+// [検索ワード: inquiryReplyChoiceV1] 2026.10.12
+// 回答希望先：'' = まだ選んでいない ／ 'none' = 不要 ／ 'tel' = 電話番号 ／ 'mail' = メールアドレス
+// 選んだ内容は、3つのボタンの入れ物（q-replyTabs）に覚えさせる。ボタンは onclick で直接ここを呼ぶ（送信ボタンと同じやり方）。
+function getInquiryReply(){
+  return String(document.getElementById("q-replyTabs").dataset.reply || '');
+}
+function setInquiryReply(kind){
+  const tabs = document.getElementById("q-replyTabs");
+  const inquiryReply = getInquiryReply();
+  const field = document.getElementById("q-contactField");
+  const label = document.getElementById("q-contactLabel");
+  const input = document.getElementById("q-contact");
+  if(inquiryReply !== kind) input.value = '';   // 選び直したら、打ってあった文字は消す
+  tabs.dataset.reply = kind;
+  tabs.classList.remove('q-reply-miss');
+  tabs.querySelectorAll('button').forEach(b=>{
+    const on = b.dataset.reply === kind;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  input.classList.remove('invalid');
+  if(kind === 'tel' || kind === 'mail'){
+    label.textContent = kind === 'tel' ? '電話番号' : 'メールアドレス';
+    input.placeholder = kind === 'tel' ? '0000000000' : '例：taro@example.com';
+    input.setAttribute('inputmode', kind === 'tel' ? 'tel' : 'email');
+    input.disabled = false;
+    field.classList.add('on');
+    input.focus();
+  }else{
+    label.textContent = '電話番号 / メールアドレス';
+    input.placeholder = kind === 'none' ? '入力は不要です' : '回答希望先を選んでください';
+    input.removeAttribute('inputmode');
+    input.disabled = true;
+    field.classList.remove('on');
+  }
+}
+// メールアドレスの形の確認（全角で打たれた英数字・記号は、半角に直してから見る）
+function normalizeInquiryMail(value){
+  let text = String(value || '').trim();
+  try{ text = text.normalize('NFKC'); }catch(e){}
+  return text.trim();
+}
+function isInquiryMail(value){
+  return /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/.test(String(value || ''));
+}
+
 function doInquiry(){
   const btn = document.getElementById("q-sendBtn");
   const msg = document.getElementById("q-msg");
+  const inquiryReply = getInquiryReply();
+  const contactRaw = document.getElementById("q-contact").value.trim();
   const payload = {
     content:  document.getElementById("q-content").value.trim(),
     name:     document.getElementById("q-name").value.trim(),
@@ -738,18 +806,32 @@ function doInquiry(){
     addressBase: document.getElementById("q-addressBase").value.trim(),
     addressDetail: document.getElementById("q-addressDetail").value.trim(),
     building: document.getElementById("q-building").value.trim(),
-    tel:      document.getElementById("q-tel").value.trim(),
+    reply:    inquiryReply,
+    tel:      inquiryReply === 'tel' ? contactRaw : '',
+    mail:     inquiryReply === 'mail' ? normalizeInquiryMail(contactRaw) : '',
     datetime: document.getElementById("q-datetime").value.trim(),
     note:     document.getElementById("q-note").value.trim()
   };
   const inquiryMiss=[];
   if(!payload.content) inquiryMiss.push('q-content');
   if(!payload.name) inquiryMiss.push('q-name');
-  ['q-content','q-name'].forEach(id=>markInvalid(document.getElementById(id),inquiryMiss.includes(id)));
+  // [検索ワード: inquiryReplyChoiceV1] 回答希望先は必須。電話番号・メールアドレスを選んだら、その入力も必須
+  if(!inquiryReply) inquiryMiss.push('q-replyTabs');
+  if((inquiryReply === 'tel' || inquiryReply === 'mail') && !contactRaw) inquiryMiss.push('q-contact');
+  ['q-content','q-name','q-contact'].forEach(id=>markInvalid(document.getElementById(id),inquiryMiss.includes(id)));
+  document.getElementById("q-replyTabs").classList.toggle('q-reply-miss', inquiryMiss.includes('q-replyTabs'));
   if(inquiryMiss.length){
     msg.style.display='block';
     msg.style.color='#c00';
     msg.textContent='未入力があります';
+    btn.disabled=false;
+    return;
+  }
+  if(inquiryReply === 'mail' && !isInquiryMail(payload.mail)){
+    markInvalid(document.getElementById("q-contact"), true);
+    msg.style.display='block';
+    msg.style.color='#c00';
+    msg.textContent='メールアドレスを確認してください';
     btn.disabled=false;
     return;
   }
@@ -758,6 +840,8 @@ function doInquiry(){
   google.script.run.withSuccessHandler(res=>{
     if(res.ok){
       document.getElementById("q-msg").style.display="none";
+      // [検索ワード: inquiryReplyChoiceV1] 「不要」を選んだ人には、「ご回答差し上げます」の文を出さない
+      document.getElementById("q-completeReply").style.display = inquiryReply === 'none' ? 'none' : '';
       document.getElementById("q-complete").style.display="block";
     }else{
       document.getElementById("q-msg").style.color="#c00";
