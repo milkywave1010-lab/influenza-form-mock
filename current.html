@@ -116,6 +116,13 @@
   .q-reply-tabs button{font-size:14px}
 }
 </style>
+<style id="exec-inquiry-content-5rows-v1">
+/* [検索ワード: inquiryContent5RowsV1] 2026.10.14
+ * お問い合わせ内容：1行の欄をやめ、5行分の高さの欄にする。5行を超えたら欄の中でスクロール。改行もできる。
+ * PCは右下の角を引っぱると縦に広げられる。
+ */
+#q-content{min-height:0;height:auto;resize:vertical;overflow-y:auto;line-height:1.6}
+</style>
 </head>
 <body>
 <main class="page">
@@ -208,7 +215,7 @@
     <div class="panel-head"><h2>お問い合わせ</h2></div>
     <div class="panel-body">
       <div class="form-grid">
-        <div class="field full"><label for="q-content">お問い合わせ内容<span class="req">必須</span></label><input id="q-content" type="text" placeholder="お問い合わせ内容を入力してください"></div>
+        <div class="field full"><label for="q-content">お問い合わせ内容<span class="req">必須</span></label><textarea id="q-content" rows="5" placeholder="お問い合わせ内容を入力してください"></textarea></div>
         <div class="field"><label for="q-name">お名前<span class="req">必須</span></label><input id="q-name" type="text" placeholder="例：山田太郎"></div>
         <!-- [検索ワード: inquiryReplyChoiceV1] 2026.10.12 回答希望先（必須）と、選んだ方の入力欄。生年月日はこの下へ移した -->
         <div class="field q-reply-field"><label id="q-replyLabel">回答希望先<span class="req">必須</span></label><div class="q-reply-tabs" id="q-replyTabs" role="group" aria-labelledby="q-replyLabel"><button type="button" data-reply="none" aria-pressed="false" onclick="setInquiryReply('none')">不要</button><button type="button" data-reply="tel" aria-pressed="false" onclick="setInquiryReply('tel')">電話番号</button><button type="button" data-reply="mail" aria-pressed="false" onclick="setInquiryReply('mail')">メールアドレス</button></div></div>

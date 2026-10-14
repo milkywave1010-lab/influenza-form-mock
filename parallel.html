@@ -10,6 +10,7 @@
  * - 2026.10.2 予約（スマホ）：接種日時を選んだ後の移動位置を修正。上部に貼り付く「予約」ボタンの下に「選択した接種日時」のカードの上端が来るようにし、カードがボタンの下にめり込まないようにした。PCは変更なし
  * - 2026.10.2 「トップページへ戻る」ボタン（予約完了・問い合わせ完了の2か所）：古いデプロイのURL直書きをやめ、今開いている予約画面のURL（webAppUrl。個人情報リンクと同じ仕組み）へ戻るよう変更 [検索ワード: topPageUrlCurrentV1]
  * - 2026.10.12 お問い合わせ：本体（web.html）と同じ形に変更。「回答希望先」（不要／電話番号／メールアドレス。必須）を追加し、選んだ方の入力欄を1つにまとめた。生年月日は回答希望先の下へ。今までの「電話番号」の欄は外した [検索ワード: inquiryReplyChoiceV1]
+ * - 2026.10.14 お問い合わせ：「お問い合わせ内容」の欄を、1行の欄から5行分の高さの欄に変更（5行を超えたら欄の中でスクロール。改行もできる。PCは右下の角を引っぱると縦に広げられる）。必須・未入力のときの赤い欄・送る中身は変更なし [検索ワード: inquiryContent5RowsV1]
  * - 既存表記・既存レイアウトは無断変更しない
  -->
 <!doctype html>
@@ -138,6 +139,13 @@ window.google={script:{run:new Proxy({},{get(_,k){return runner()[k]}})}};})();
   .q-reply-tabs button{font-size:14px}
 }
 </style>
+<style id="exec-inquiry-content-5rows-v1">
+/* [検索ワード: inquiryContent5RowsV1] 2026.10.14
+ * お問い合わせ内容：1行の欄をやめ、5行分の高さの欄にする。5行を超えたら欄の中でスクロール。改行もできる。
+ * PCは右下の角を引っぱると縦に広げられる。
+ */
+#q-content{min-height:0;height:auto;resize:vertical;overflow-y:auto;line-height:1.6}
+</style>
 </head>
 <body><div style="background:#1f4d3f;color:#fff;font:700 13px/1.6 sans-serif;padding:6px 12px;text-align:center">修正版（パラレルワールド）｜ダミーデータ・予約は実際には入りません</div>
 <main class="page">
@@ -230,7 +238,7 @@ window.google={script:{run:new Proxy({},{get(_,k){return runner()[k]}})}};})();
     <div class="panel-head"><h2>お問い合わせ</h2></div>
     <div class="panel-body">
       <div class="form-grid">
-        <div class="field full"><label for="q-content">お問い合わせ内容<span class="req">必須</span></label><input id="q-content" type="text" placeholder="お問い合わせ内容を入力してください"></div>
+        <div class="field full"><label for="q-content">お問い合わせ内容<span class="req">必須</span></label><textarea id="q-content" rows="5" placeholder="お問い合わせ内容を入力してください"></textarea></div>
         <div class="field"><label for="q-name">お名前<span class="req">必須</span></label><input id="q-name" type="text" placeholder="例：山田太郎"></div>
         <!-- [検索ワード: inquiryReplyChoiceV1] 2026.10.12 回答希望先（必須）と、選んだ方の入力欄。生年月日はこの下へ移した -->
         <div class="field q-reply-field"><label id="q-replyLabel">回答希望先<span class="req">必須</span></label><div class="q-reply-tabs" id="q-replyTabs" role="group" aria-labelledby="q-replyLabel"><button type="button" data-reply="none" aria-pressed="false" onclick="setInquiryReply('none')">不要</button><button type="button" data-reply="tel" aria-pressed="false" onclick="setInquiryReply('tel')">電話番号</button><button type="button" data-reply="mail" aria-pressed="false" onclick="setInquiryReply('mail')">メールアドレス</button></div></div>
